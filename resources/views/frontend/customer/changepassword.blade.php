@@ -12,7 +12,7 @@
             <div class="container my-auto py-5">
                 <div class="row">
                     <div class="col-lg-9 col-xl-7 mx-auto position-relative">
-                        <form action="{{ route('customer.change.password') }}" class="input_style_1" method="post">
+                        <form action="{{ route_with_locale('customer.change.password') }}" class="input_style_1" method="post">
                             @csrf
                                                                                                 
                             <div>

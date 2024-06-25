@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+use App\Models\NormalUser;
 
 class AdminController extends Controller
 {
@@ -22,7 +22,8 @@ class AdminController extends Controller
      */
     public function dashboard()
     {
-        return view('backend.dashboard');
+        $customerCount = NormalUser::count();
+        return view('backend.dashboard',compact('customerCount'));
     }
 
     /**

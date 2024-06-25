@@ -15,7 +15,7 @@
             <div class="container">
                 <div class="row">
                     <div class="offset-lg-3 col-lg-6">
-                        <h1>Contact</h1>
+                        <h1>{{ __('Contacten') }}</h1>
                     </div>
                 </div>
 
@@ -34,11 +34,10 @@
 
         <div class="container mb-4 b-line">
             <div class="contact-title-content">
-                <h5>Breng je interieur naar een hoger niveau met Nima Interiors</h5>
+                <h5>{{ __('Breng je interieur naar een hoger niveau met Nima Interiors') }}</h5>
                 <div class="contact-text">
-                    <p>Benieuwd hoe wij jouw interieurinrichting transformeren? Maak een afspraak in onze showroom. </p>
-                    <p>Vul het contactformulier in of bel ons vandaag nog. We staan klaar om je te helpen jouw visie
-                        werkelijkheid te maken.</p>
+                    <p>{{ __('Benieuwd hoe wij jouw interieurinrichting transformeren? Maak een afspraak in onze showroom.') }}</p>
+                    <p>{{ __('Vul het contactformulier in of bel ons vandaag nog. We staan klaar om je te helpen jouw visie werkelijkheid te maken.') }}</p>
                 </div>
             </div>
         </div>
@@ -54,12 +53,15 @@
 
                     <!-- ***** Contact Text Start ***** -->
                     <div class="col-lg-6 col-md-6 col-sm-12  text-right">
-                        <h5>Neem contact met ons op</h5>
+                        <h5>{{ __('Neem contact met ons op') }}</h5>
                         <div class="contact-text">
-                            <p>Open op afspraak </p>
-                            <p>Herentalsebaan 301, 2150 Borsbeek</p>
-                            <p>info@nimainteriors.com </p>
-                            <a href="tel:+3232968266"><i class="fa fa-phone"></i>+32 3 296 82 66</a>
+                            <p>{{ __('Open op afspraak') }} </p>
+                            <p>{{ $contactInfo->address }}</p>
+                            <p><a
+                                href="mailto:info@nimainteriors.com"><p>{{ $contactInfo->email }}</p>
+                            </a></p>
+                            <p><a href="tel:+3232968266"><i class="fa fa-phone"></i>{{ $contactInfo->contactNumber }}
+                            </a></p>
                         </div>
                         
                         <div class="iframe-container">
@@ -72,19 +74,19 @@
 
                     <!-- ***** Contact Form Start ***** -->
                     <div class="col-lg-6 col-md-6 col-sm-12 border-left">
-                        <form id="contactForm" action="{{ route('contactform') }}" method="POST">
+                        <form id="contactForm" action="{{ route_with_locale('contactform') }}" method="POST">
                             @csrf
                             <div class="contact-form">
                                 <div class="row">
                                     <div class="col-lg-6 col-md-12 col-sm-12">
-                                        <input type="text" name="fname" placeholder="Voornaam"
+                                        <input type="text" class="form-u" name="fname" placeholder="{{ __('Voornaam') }}"
                                             value="{{ old('fname') }}">
                                         @if ($errors->has('fname'))
                                         <p class="error-form">{{ $errors->first('fname') }}</p>
                                         @endif
                                     </div>
                                     <div class="col-lg-6 col-md-12 col-sm-12">
-                                        <input type="text" name="lname" placeholder="Achternaam"
+                                        <input type="text" name="lname" placeholder="{{ __('Achternaam') }}"
                                             value="{{ old('lname') }}">
                                         @if ($errors->has('lname'))
                                         <p class="error-form">{{ $errors->first('lname') }}</p>
@@ -92,14 +94,14 @@
                                     </div>
                                     <div class="col-lg-6 col-md-12 col-sm-12 ">
                                         <select name="iam" class="form-select form-u" aria-label="Ik ben">
-                                            <option disabled hidden {{ old('iam') ? '' : 'selected' }}>Ik ben</option>
+                                            <option disabled hidden {{ old('iam') ? '' : 'selected' }}>{{ __('Ik ben') }}</option>
                                             <option value="particulars" {{ old('iam')=='particulars' ? 'selected' : ''
-                                                }}>Particulier</option>
+                                                }}>{{ __('Particulier') }}</option>
                                             <option value="architect" {{ old('iam')=='architect' ? 'selected' : '' }}>
-                                                Architect</option>
+                                                {{ __('Architect') }}</option>
                                             <option value="constructionpromoter" {{ old('iam')=='constructionpromoter'
-                                                ? 'selected' : '' }}>Bouwpromoter</option>
-                                            <option value="others" {{ old('iam')=='others' ? 'selected' : '' }}>Andere
+                                                ? 'selected' : '' }}>{{ __('Bouwpromoter') }}</option>
+                                            <option value="others" {{ old('iam')=='others' ? 'selected' : '' }}>{{ __('Andere') }}
                                             </option>
                                         </select>
                                         @if ($errors->has('iam'))
@@ -108,49 +110,48 @@
                                     </div>
                                     <div class="col-lg-6 col-md-12 col-sm-12 ">
                                         <select name="project" class="form-select form-u">
-                                            <option disabled hidden {{ old('project') ? '' : 'selected' }}>Kies project
-                                                type</option>
+                                            <option disabled hidden {{ old('project') ? '' : 'selected' }}>{{ __('Kies project type') }}</option>
                                             <option value="newconstruction" {{ old('project')=='newconstruction'
-                                                ? 'selected' : '' }}>Nieuwbouw</option>
+                                                ? 'selected' : '' }}>{{ __('Nieuwbouw') }}</option>
                                             <option value="renovation" {{ old('project')=='renovation' ? 'selected' : ''
-                                                }}>Renovatie</option>
+                                                }}>{{ __('Renovatie') }}</option>
                                             <option value="others" {{ old('project')=='others' ? 'selected' : '' }}>
-                                                Andere</option>
+                                                {{ __('Andere') }}</option>
                                         </select>
                                         @if ($errors->has('project'))
                                         <p class="error-form">{{ $errors->first('project') }}</p>
                                         @endif
                                     </div>
                                     <div class="col-lg-6 col-md-12 col-sm-12">
-                                        <input type="text" name="phonenumber" placeholder="Telefoonnummer"
+                                        <input type="text" name="phonenumber" placeholder="{{ __('Telefoonnummer') }}"
                                             value="{{ old('phonenumber') }}">
                                         @if ($errors->has('phonenumber'))
                                         <p class="error-form">{{ $errors->first('phonenumber') }}</p>
                                         @endif
                                     </div>
                                     <div class="col-lg-6 col-md-12 col-sm-12">
-                                        <input type="text" name="streetnumber" placeholder="Straat en huis nummer"
+                                        <input type="text" name="streetnumber" placeholder="{{ __('Straatnaam en huis nummer') }}"
                                             value="{{ old('streetnumber') }}">
                                         @if ($errors->has('streetnumber'))
                                         <p class="error-form">{{ $errors->first('streetnumber') }}</p>
                                         @endif
                                     </div>
                                     <div class="col-lg-6 col-md-12 col-sm-12">
-                                        <input type="text" name="pcodeandc" placeholder="Postcode en stad"
+                                        <input type="text" name="pcodeandc" placeholder="{{ __('Postcode en stad') }}"
                                             value="{{ old('pcodeandc') }}">
                                         @if ($errors->has('pcodeandc'))
                                         <p class="error-form">{{ $errors->first('pcodeandc') }}</p>
                                         @endif
                                     </div>
                                     <div class="col-lg-6 col-md-12 col-sm-12">
-                                        <input type="email" name="email" placeholder="E-mailadres"
+                                        <input type="email" name="email" placeholder="{{ __('E-mailadres') }}"
                                             value="{{ old('email') }}">
                                         @if ($errors->has('email'))
                                         <p class="error-form">{{ $errors->first('email') }}</p>
                                         @endif
                                     </div>
                                     <div class="col-lg-12">
-                                        <textarea name="message" placeholder="Bericht">{{ old('message') }}</textarea>
+                                        <textarea name="message" placeholder="{{ __('Bericht') }}">{{ old('message') }}</textarea>
                                         @if ($errors->has('message'))
                                         <p class="error-form">{{ $errors->first('message') }}</p>
                                         @endif
@@ -158,7 +159,7 @@
                                     <div
                                         class="col-lg-12 text-left height: 30px; display: flex; justify-content: center; align-items: center;">
                                         <button id="submitButton" class="btn btn-c float-right"
-                                            type="submit">Verzend</button>
+                                            type="submit">{{ __('Verzend') }}</button>
                                     </div>
                                 </div>
                             </div>
@@ -188,20 +189,13 @@
             </div>
             <div class="profile-info col-lg-6 col-md-6 col-sm-12  text-justify">
                 <h3 class=" pb-4">
-                    Een toegewijd familiebedrijf sinds 2014
+                    {{ __('Een toegewijd familiebedrijf sinds 2014') }}
                 </h3>
                 <p>
-                    Welkom bij Nima Interiors. Onze reis begon met een gedeelde passie voor interieur.
-                    Na jarenlange ervaring bij gerenommeerde interieurbedrijven besloten Adam en Majda
-                    hun eigen weg te gaan. Wat ooit begon als een breed scala aan interieurinrichtingen,
-                    evolueerde al snel naar een bijzondere focus op keukens en elk aspect van huiselijk comfort.
+                    {{ __('Welcome to Nima Interiors. Adam and Majda started with a shared passion for interiors. After years of experience at renowned interior companies, they decided to go their own way. What once began as a broad range of interior designs quickly evolved into a special focus on kitchens and every aspect of home comfort, comparable to the best of all modern furniture.') }}
                 </p>
                 <p>
-                    Nu, ruim twintig jaar later, hebben we ons gespecialiseerd in het ontwerpen en realiseren van
-                    verfijnde interieurs, van keukens tot aan elk detail dat bijdraagt aan de sfeer van thuis.
-                    Gedurende onze reis hebben we onze eigen unieke stijl ontwikkeld,
-                    een stijl die met trots wordt herkend als die van Nima Interiors, maar bovenal als jouw persoonlijke
-                    signatuur.
+                {{ __('Now, over twenty years later, they have specialized in designing and realizing refined interiors, from kitchens to every detail that contributes to the home\'s atmosphere. Throughout their journey, they have developed their own unique style, a style proudly recognized as that of Nima Interiors, but above all, as your personal signature.') }}
                 </p>
             </div>
         </div>

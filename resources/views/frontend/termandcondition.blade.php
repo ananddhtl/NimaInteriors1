@@ -1,4 +1,5 @@
 @extends('welcome')
+@section('title','Algemene voorwaarden : Nimainteriors.com')
 @section('content')
 <section class="page">
 

@@ -1,4 +1,10 @@
 @extends('welcome')
+@php
+    $title = __('Privacyverklaring : Nimainteriors.com');
+@endphp
+
+@section('title', $title)
+
 @section('content')
 <section class="page">
 

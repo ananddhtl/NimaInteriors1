@@ -14,7 +14,7 @@
             <div class="container my-auto py-5">
                 <div class="row">
                     <div class="col-lg-9 col-xl-7 mx-auto position-relative">
-                        <form action="{{ route('customer.normaluserdata') }}" class="input_style_1" method="post">
+                        <form action="{{ route_with_locale('customer.normaluserdata') }}" class="input_style_1" method="post">
                             @csrf
 
                             <div class="form-group">
@@ -59,7 +59,7 @@
                             </div>
                             <button type="submit" class="btn_1 full-width">Sign Up</button>
                         </form>
-                        <p class="text-center mt-3 mb-0">Already have an account? <a href="{{route('customer.login')}}">Sign In</a></p>
+                        <p class="text-center mt-3 mb-0">Already have an account? <a href="{{route_with_locale('customer.login')}}">Sign In</a></p>
                    
                     </div>
                 </div>

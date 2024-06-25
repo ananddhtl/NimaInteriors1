@@ -13,10 +13,10 @@
                     </div>
                     <div class="col-lg-6">
                         <div class="d-none d-lg-block">
-                            <ol class="breadcrumb m-0 float-end">
-                                <li class="breadcrumb-item"><a href="javascript: void(0);">
-                                        Item Group</a></li>
-                                <li class="breadcrumb-item active">Add</li>
+                            <ol class="breadcrumb m-0 ">
+                                <li class="breadcrumb-item btn btn-c"><a href="{{ route('admin.items') }}">
+                                    Back</a></li>
+                              
                             </ol>
                         </div>
                     </div>
@@ -176,10 +176,48 @@
                                 <div class="col-12">
                                     <div class="p-2">
 
-                                        <ul id="selectedAddonItems">
-                                            <!-- Added items will be displayed here -->
-                                        </ul>
+                                        <form id="editAddonForm"
+                                            action=""
+                                            method="POST">
+                                            @csrf
+                                            @method('PUT')
 
+                                            @if (!empty($addondetails))
+                                                @foreach ($addondetails as $category => $items)
+                                                    <h2>{{ $category }}</h2>
+                                                    @foreach ($items as $index => $item)
+                                                        @php
+                                                            // Extract the item name and price
+                                                            [$name, $price] = explode(' - $', $item);
+                                                        @endphp
+                                                        <div class="form-group">
+                                                            <label
+                                                                for="{{ $category }}_{{ $index }}">{{ $name }}
+                                                                ({{ $category }})
+                                                            </label>
+                                                            <input type="number" step="0.01" class="form-control"
+                                                                id="{{ $category }}_{{ $index }}"
+                                                                name="addondetails[{{ $category }}][{{ $index }}]"
+                                                                value="{{ $price }}">
+
+                                                            <input type="hidden"
+                                                                name="delete_addondetails[{{ $category }}][]"
+                                                                value="{{ $index }}">
+
+                                                            <span class="delete-addon"
+                                                                data-category="{{ $category }}"
+                                                                data-index="{{ $index }}"
+                                                                title="Delete addon detail"
+                                                                style="cursor: pointer;">&#10006;</span>
+                                                        </div>
+                                                    @endforeach
+                                                @endforeach
+                                            @else
+                                                <p>No addon details available.</p>
+                                            @endif
+
+                                            
+                                        </form>
                                     </div>
                                 </div>
 
@@ -338,6 +376,40 @@
 
                 // Display selected items in the div
                 displaySelectedItems();
+            }
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add event listener for delete buttons
+            const deleteButtons = document.querySelectorAll('.delete-addon');
+            deleteButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const category = this.getAttribute('data-category');
+                    const index = this.getAttribute('data-index');
+                    // Send AJAX request to delete addon detail
+                    deleteAddonDetail(category, index);
+                });
+            });
+
+            // Function to send AJAX request to delete addon detail
+            function deleteAddonDetail(category, index) {
+                $.ajax({
+                    url: '{{ route('inventory.deleteAddonDetail', $itemsdetail->id) }}',
+                    type: 'DELETE',
+                    data: {
+                        category: category,
+                        index: index,
+                        _token: '{{ csrf_token() }}'
+                    },
+                    success: function(response) {
+                        // Reload the page or update UI as needed
+                        location.reload();
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(xhr.responseText);
+                    }
+                });
             }
         });
     </script>

@@ -49,7 +49,7 @@
         gap: 15px;
     }
 
-    .nav-container .sp-i {
+    .container-top-header .sp-i {
         display: flex;
         gap: 5px;
         align-items: center
@@ -158,7 +158,7 @@
         .header-area .container-show i {
             color: #595959;
             font-size: 12px;
-            font-weight: 500;
+
             background: transparent;
         }
 
@@ -166,6 +166,11 @@
             text-align: center;
         }
     }
+
+    .flags {
+        cursor: pointer;
+    }
+
     .language-dropdown {
         position: relative;
         display: inline-block;
@@ -196,7 +201,239 @@
     .language-option img {
         margin-right: 10px;
     }
+
+    .top-new-right {
+        display: flex;
+        gap: 20px;
+        width: 50%;
+        justify-content: right;
+        align-items: center;
+    }
+
+    .top-new-right a {
+        color: #606060;
+        font-size: 14px !important;
+    }
+
+    .login-register {
+        display: flex;
+        gap: 20px;
+
+    }
+
+    .userprofile {
+        position: relative;
+    }
+
+    .dropdown-show {
+        display: block !important;
+    }
+
+    .user-dropdown {
+        position: absolute;
+        top: 42px;
+        /* left: 0px; */
+        width: 150px;
+        background-color: white;
+        box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+        display: none;
+        z-index: 99;
+    }
+
+    .language-dropdown {
+        position: absolute;
+        top: 42px;
+        z-index: 99;
+        width: 75px;
+        background-color: white;
+        box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+        padding: 10px;
+        display: none;
+    }
+
+    .user-dropdown ul li {
+        padding: 10px;
+        border-bottom: 1px solid rgb(211, 211, 211);
+    }
+
+    .user-dropdown ul li a {
+        font-size: 13px;
+    }
+
+    .user-dropdown ul li:last-child {
+        border-bottom: none !important;
+    }
+
+    .userprofile p {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+    }
+
+    .userprofile i.acc-user {
+        font-size: 12px;
+        margin-right: 10px;
+    }
+
+    .caret-up-dropdown {
+        position: absolute;
+        top: -10px;
+    }
+
+    .caret-up-dropdown i {
+        font-size: 20px;
+        margin-left: 10px;
+        color: white;
+    }
+
+    .userprofile i.fa-caret-down {
+        font-size: 12px;
+        margin-left: 7px;
+    }
+
+    .cart-new span {
+        margin-left: 5px;
+        color: rgb(221, 156, 119);
+        font-weight: bold;
+    }
+
+    .profile-ul {
+        background: #f1f1f1;
+        z-index: 4;
+    }
+
+    /modal popup/ .new-modal {
+        display: none;
+        position: fixed;
+        z-index: 999999999;
+        padding-top: 100px;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgb(0, 0, 0);
+        background-color: rgba(0, 0, 0, 0.4);
+    }
+
+    .new-modal-content {
+        position: relative;
+        background-color: #fefefe;
+        margin: auto;
+        padding: 0;
+        border: 1px solid #888;
+        width: 55%;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        -webkit-animation-name: animatetop;
+        -webkit-animation-duration: 0.4s;
+        animation-name: animatetop;
+        animation-duration: 0.4s;
+    }
+
+    @-webkit-keyframes animatetop {
+        from {
+            top: -300px;
+            opacity: 0
+        }
+
+        to {
+            top: 0;
+            opacity: 1
+        }
+    }
+
+    @keyframes animatetop {
+        from {
+            top: -300px;
+            opacity: 0
+        }
+
+        to {
+            top: 0;
+            opacity: 1
+        }
+    }
+
+    .modal-close {
+        color: black;
+
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .modal-close:hover,
+    .modal-close:focus {
+        color: #000;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .new-modal-header {
+        padding: 10px 16px;
+        border-bottom: 1px solid rgb(189, 188, 188);
+        display: flex;
+        margin-bottom: 10px;
+    }
+
+    .search-lists {
+        display: flex;
+        gap: 10px;
+    }
+
+    .search-lists input {
+        padding: 10px;
+        width: 85%;
+    }
+
+    .search-lists button {
+        width: 15%;
+    }
+
+    .new-modal-body {
+        padding: 15px 16px;
+    }
+
+    .new-modal-body form {
+        margin-left: 10px;
+    }
+    .option-lang{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-content: center;
+    }
+    .option-lang a{
+        padding:5px;
+    }
 </style>
+<div id="newModal" class="new-modal">
+
+    <div class="new-modal-content">
+        <div class="new-modal-header">
+            <div class="address-modal-title">
+                <h4>Search Items</h4>
+            </div>
+            <div class="close-modal">
+                <span class="modal-close">&times;</span>
+            </div>
+        </div>
+        <div class="new-modal-body">
+            <form action="{{ route_with_locale('searchresults') }}" method="GET">
+                <div class="search-lists">
+                    <form>
+                        <input type="text" name="query" autocomplete="off" placeholder="Search......">
+                        <button class="btn btn-primary" type="submit">{{ __('Zoeken') }}</button>
+                    </form>
+
+
+                </div>
+
+            </form>
+        </div>
+
+    </div>
+
+</div>
 
 
 <header class="header-area">
@@ -216,108 +453,129 @@
                     </div>
                     <div class="sp-i">
                         <i class="fa fa-info-circle"></i>
-                        <p style=" "><a href="/contact">Enkel open op afspraak </a></p>
+                        <p style=" "><a href="{{ route_with_locale('frontend.contact') }}">{{ __('Enkel open op afspraak') }} </a></p>
 
                     </div>
                     <div class="contact-us-link d-flex align-items-center">
                         <div class="sp-i">
                             <i class="fa fa-envelope"></i>
                             <p class="contact-us-top-nav ml-3 underline-with-gap"><a
-                                    href="mailto:info@nimainteriors.com">info@nimainteriors.com </a></p>
+                                    href="mailto:info@nimainteriors.com">{{ $contactInfo->email }}</a></p>
 
                         </div>
                         <div class="sp-i">
                             <i class="fa fa-phone"></i>
-                            <p class="contact-us-top-nav ml-3 underline-with-gap"><a href="tel:+3232968266">+32 3 296 82
-                                    66</a></p>
+                            <p class="contact-us-top-nav ml-3 underline-with-gap"><a href="tel:+3232968266">{{
+                                    $contactInfo->contactNumber }}</a></p>
 
                         </div>
                     </div>
 
                 </div>
 
-                <div class=" right-bar">
-                    {{-- drop down for langauge option --}}
-
-                    <div class="header-account">
-                        <div class="myaccount d-flex">
-                            <div class="tongle" id="account-toggler">
-                                <i class="fa fa-user"></i>
-                                @if (auth()->check())
-                                <span>{{ auth()->user()->fullname }}</span>
-                                @else
-                                <span>Account</span>
-                                <i class="fa fa-angle-down"></i>
-                                @endif
+                <div class="top-new-right">
+                    @if (auth()->check())
+                    <div class="userprofile">
+                        <p class="show-dropdown"><i class="fa-solid fa-user acc-user"></i>
+                            {{ auth()->user()->fullname }} <i class="fa-solid fa-caret-down"></i></p>
+                        <div class="user-dropdown">
+                            <div class="caret-up-dropdown">
+                                <i class="fa-solid fa-caret-up"></i>
                             </div>
-                            <div class="customer-ct content" id="account-dropdown">
-                                <ul class="links">
-                                    @if (auth()->check())
-                                    <li class="first">
-                                        <a class="top-link-myaccount" title="My Account" href="/customer/account">My
-                                            Account</a>
-                                    </li>
-                                    <li>
-                                        <a class="top-link-wishlist" title="My Wishlist" href="#">My Wishlist</a>
-                                    </li>
-                                    <li>
-                                        <a class="top-link-checkout" title="Checkout" href="#">Order</a>
-                                    </li>
-                                    <li>
-                                        <a class="top-link-profile" title="Profile" href="#">Profile</a>
-                                    </li>
-                                    <li>
-                                        <form action="{{ route('customer.logout') }}" method="post">
-                                            @csrf
-                                            <button type="submit">Logout</button>
-                                        </form>
-                                    </li>
-                                    @else
-                                    <li class="last">
-                                        <a class="top-link-login" title="Log In"
-                                            href="{{ route('customer.login') }}">Login</a>
-                                    </li>
-                                    <li class="last">
-                                        <a class="top-link-register" title="Register"
-                                            href="{{ route('customer.register') }}">Register</a>
-                                    </li>
-                                    @endif
-                                </ul>
-                            </div>
-                            <div class="wishlist">
-                                <i class="fa fa-heart"></i>
-                            </div>
-                            <div class="c-cart">
-                                <i class="fa fa-shopping-cart"></i>
-                            </div>
+                            <ul>
+                                <li><a href="{{ route_with_locale('dashboard') }}">{{ __('Profiel') }}</a></li>
+                                <li>
+                                    <form action="{{ route_with_locale('customer.logout') }}" method="POST">
+                                        @csrf
+                                        <button type="submit" class="btn"><i
+                                                class="fa-solid fa-arrow-right-from-bracket"></i>{{ __('Afmelden')
+                                            }}</button>
+                                    </form>
+                                </li>
+                            </ul>
                         </div>
                     </div>
+                    @else
+                    <div class="login-register">
+                        <a href="{{ route_with_locale('customer.login') }}"><i class="fa-solid fa-user"></i></a>
 
+                    </div>
+                    @endif
+                    @php
+                    $totalQuantity = 0;
+                    if (session('cart')) {
+                    foreach (session('cart') as $item) {
+                    $totalQuantity += $item['quantity'];
+                    }
+                    }
+                    @endphp
 
-                    <div class="mysetting">
-                        <div class="tongle">
-                            <div class="language-dropdown">
-                                <a id="current-language" data-lang="{{ $current_locale }}" class="language-link"
-                                    href="">
-                                    <img id="current-flag" alt=""
-                                        src="{{ asset('frontend/assets/images/photos/flag/' . ucfirst($current_locale) . '.png') }}">
-                                    <span id="current-locale">{{ config('app.available_locales')[$current_locale]
-                                        }}</span>
-                                </a>
-                                <div id="language-list" class="language-list">
-                                    @foreach(config('app.available_locales') as $locale_code => $locale_name)
-                                    @if($locale_code !== $current_locale)
-                                    <a class="language-option" href="{{ route('language.switch', $locale_code) }}"
-                                        data-locale="{{ $locale_code }}" data-locale-name="{{ $locale_name }}">
-                                        <img alt=""
-                                            src="{{ asset('frontend/assets/images/photos/flag/' . ucfirst($locale_code) . '.png') }}">
-                                        <span>{{ $locale_name }}</span>
-                                    </a>
-                                    @endif
-                                    @endforeach
-                                </div>
+                    <a href="{{ route_with_locale('cart') }}" class="cart-new">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                        <span>({{ $totalQuantity }})</span>
+                    </a>
+
+                    <a href="{{ route_with_locale('wishlist', ['locale' => $locale]) }}" class="cart-new" id="wishlist-count"><i class="fa-solid fa-heart"></i><span>0</span></a>
+                    {{-- flag language option start here --}}
+                    <div class="flags">
+                        <a class="flag-default" id="current-language">
+                            @if ($current_locale === 'nl_be')
+                            <img alt="" src="{{ asset('frontend/assets/images/photos/flag/be.png') }}">
+                            BE
+                            @elseif ($current_locale === 'nl')
+                            <img alt="" src="{{ asset('frontend/assets/images/photos/flag/nl.png') }}">
+                            NL
+                            @elseif ($current_locale === 'en')
+                            <img alt="" src="{{ asset('frontend/assets/images/photos/flag/en.png') }}">
+                            EN
+                            @endif
+                            <i class="fa-solid fa-caret-down"></i>
+
+                        </a>
+                        <div class="language-dropdown">
+                            <div class="caret-up-dropdown">
+                                <i class="fa-solid fa-caret-up"></i>
                             </div>
+
+                            @if ($current_locale === 'nl_be')
+                            <div class="option-lang">
+                                <a href="{{ route('language.switch', ['locale' => 'en']) }}" id="EN-language">
+                                    <img alt="" src="{{ asset('frontend/assets/images/photos/flag/en.png') }}">
+                                    EN
+                                </a>
+                                <a href="{{ route('language.switch', ['locale' => 'nl']) }}" id="NL-language">
+                                    <img alt="" src="{{ asset('frontend/assets/images/photos/flag/nl.png') }}">
+                                    NL
+                                </a>
+                            </div>
+                            
+                            @elseif ($current_locale === 'nl')
+                            <div class="option-lang">
+                                <a href="{{ route('language.switch', ['locale' => 'nl_be']) }}" id="BE-language">
+                                    <img alt="" src="{{ asset('frontend/assets/images/photos/flag/be.png') }}">
+                                    BE
+                                </a>
+                                <a href="{{ route('language.switch', ['locale' => 'en']) }}" id="EN-language">
+                                    <img alt="" src="{{ asset('frontend/assets/images/photos/flag/en.png') }}">
+                                    EN
+                                </a>
+                            </div>
+                         
+                            @elseif ($current_locale === 'en')
+                            <div class="option-lang">
+                                <a href="{{ route('language.switch', ['locale' => 'nl_be']) }}" id="BE-language">
+                                    <img alt="" src="{{ asset('frontend/assets/images/photos/flag/be.png') }}">
+                                    BE
+                                </a>
+                                <a href="{{ route('language.switch', ['locale' => 'nl']) }}" id="NL-language">
+                                    <img alt="" src="{{ asset('frontend/assets/images/photos/flag/nl.png') }}">
+                                    NL
+                                </a>
+                            </div>
+                          
+                            @endif
                         </div>
+
                     </div>
 
                 </div>
@@ -334,11 +592,110 @@
                 </div>
 
                 <span class="p-1"></span>
-                <p style="margin: 0;"><a href="/contact">Enkel open op afspraak </a></p>
+                <p style="margin: 0;"><a href="{{ route_with_locale('frontend.contact') }}">{{ __('Enkel open op afspraak') }} </a></p>
 
             </div>
-            <div class="h-right">
+            <div class="top-new-right">
+                @if (auth()->check())
+                <div class="userprofile">
+                    <p class="show-dropdown"><i class="fa-solid fa-user acc-user"></i>
+                        <i class="fa-solid fa-caret-down"></i>
+                    </p>
+                    <div class="user-dropdown">
+                        <div class="caret-up-dropdown">
+                            <i class="fa-solid fa-caret-up"></i>
+                        </div>
+                        <div class="profile-ul">
+                            <ul>
+                                <li><a href="{{ route_with_locale('dashboard') }}">{{ __('Profiel') }}</a></li>
+                                <li>
+                                    <form action="{{ route_with_locale('customer.logout') }}" method="POST">
+                                        @csrf
+                                        <button type="submit" class="btn"><i
+                                                class="fa-solid fa-arrow-right-from-bracket"></i> {{ __('Afmelden')
+                                            }}</button>
+                                    </form>
+                                </li>
+                            </ul>
+                        </div>
 
+                    </div>
+                </div>
+                @else
+                <div class="login-register">
+                    <a href="{{ route_with_locale('customer.login') }}"><i class="fa-solid fa-user"></i></a>
+
+                </div>
+                @endif
+
+                {{-- cart shop --}}
+
+                @php
+                $totalQuantity = 0;
+                if (session('cart')) {
+                foreach (session('cart') as $item) {
+                $totalQuantity += $item['quantity'];
+                }
+                }
+                @endphp
+
+                <a href="{{ route_with_locale('cart') }}" class="cart-new">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span>({{ $totalQuantity }})</span>
+                </a>
+                {{-- wishlist --}}
+                <a href="{{ route_with_locale('wishlist', ['locale' => $locale]) }}" class="cart-new" id="wishlist-count"><i class="fa-solid fa-heart"></i><span>0</span></a>                <div class="flags">
+                    <a class="flag-default" id="current-language">
+                        @if ($current_locale === 'nl_be')
+                        <img alt="" src="{{ asset('frontend/assets/images/photos/flag/be.png') }}">
+                        BE
+                        @elseif ($current_locale === 'nl')
+                        <img alt="" src="{{ asset('frontend/assets/images/photos/flag/nl.png') }}">
+                        NL
+                        @elseif ($current_locale === 'en')
+                        <img alt="" src="{{ asset('frontend/assets/images/photos/flag/en.png') }}">
+                        EN
+                        @endif
+                        <i class="fa-solid fa-caret-down"></i>
+
+                    </a>
+                    <div class="language-dropdown">
+                        <div class="caret-up-dropdown">
+                            <i class="fa-solid fa-caret-up"></i>
+                        </div>
+
+                        @if ($current_locale === 'nl_be')
+                            <a href="{{ route('language.switch', ['locale' => 'en']) }}" id="EN-language">
+                                <img alt="" src="{{ asset('frontend/assets/images/photos/flag/en.png') }}">
+                                EN
+                            </a>
+                            <a href="{{ route('language.switch', ['locale' => 'nl']) }}" id="NL-language">
+                                <img alt="" src="{{ asset('frontend/assets/images/photos/flag/nl.png') }}">
+                                NL
+                            </a>
+                        @elseif ($current_locale === 'nl')
+                            <a href="{{ route('language.switch', ['locale' => 'nl_be']) }}" id="BE-language">
+                                <img alt="" src="{{ asset('frontend/assets/images/photos/flag/be.png') }}">
+                                BE
+                            </a>
+                            <a href="{{ route('language.switch', ['locale' => 'en']) }}" id="EN-language">
+                                <img alt="" src="{{ asset('frontend/assets/images/photos/flag/en.png') }}">
+                                EN
+                            </a>
+                        @elseif ($current_locale === 'en')
+                            <a href="{{ route('language.switch', ['locale' => 'nl_be']) }}" id="BE-language">
+                                <img alt="" src="{{ asset('frontend/assets/images/photos/flag/be.png') }}">
+                                BE
+                            </a>
+                            <a href="{{ route('language.switch', ['locale' => 'nl']) }}" id="NL-language">
+                                <img alt="" src="{{ asset('frontend/assets/images/photos/flag/nl.png') }}">
+                                NL
+                            </a>
+                        @endif
+                        
+                    </div>
+
+                </div>
             </div>
         </div>
     </div>
@@ -353,60 +710,51 @@
                         </a>
 
                         <ul class="nav">
-                            <li><a href="/" id="home-link">{{ __('startpagina') }}</a></li>
-                            <li><a href="/projecten" id="project-link">Projecten</a></li>
-                            <li><a href="/blog" id="blog-link">Blogs</a></li>
+                            <li><a href="{{ route_with_locale('frontend.homepage') }}
+                                " id="home-link">{{ __('Startpagina') }}</a></li>
+                            <li><a href="{{ route_with_locale('projectlist') }}" id="project-link">{{ __('Projecten')
+                                    }}</a>
+                            </li>
+                            <li><a href="{{ route_with_locale('bloglist') }}" id="blog-link">{{ __('Blogs') }}</a></li>
 
                             <!-- Other navigation links -->
-                            <li><a class="" href="/contact" id="contact-link">Contact</a></li>
+                            <li><a class="" href="{{ route_with_locale('frontend.contact') }}" id="contact-link">{{
+                                    __('Contacten') }}</a></li>
 
                             {{-- <div class="vertical-line"></div> --}}
-                            <li><a href="/shop" id="shop-link">Webshop</a></li>
-                            {{-- <li><a href="#" id="search-link" class="s-form c-light">Zoeken <i
-                                        class="fa fa-search"></i></a></li>
-                            --}}
+                            <li><a href="{{ route_with_locale('productslist') }}" id="shop-link">{{ __('Webshop') }}</a>
+                            </li>
+
                             <li>
+                                <div class="search-icon">
+                                    <i class="fa-solid fa-magnifying-glass" id="modalbtn"></i>
+                                </div>
+                            </li>
+
+                            {{-- <div id="search-form" style="display: none;">
+                                <form id="search-form-field" action="{{ route('search') }}" method="GET">
+                                    <input type="text" name="keyword" placeholder="Search..." id="search-input">
+                                    <button type="submit">Search</button>
+                                </form>
+                                <div id="search-results" style="display: none;"></div>
+                            </div> --}}
+                            <li>
+
 
                                 <div class="contact-us-link ham-contact-us">
                                     <div class="sp-i">
                                         <i class="fa fa-envelope"></i>
-                                        <p class="contact-us-top-nav ml-3 "><a
-                                                href="mailto:info@nimainteriors.com">info@nimainteriors.com </a></p>
+                                        <p class="contact-us-top-nav ml-3 "><a href="mailto:info@nimainteriors.com">{{
+                                                $contactInfo->email }}</a></p>
 
                                     </div>
                                     <div class="sp-i">
                                         <i class="fa fa-phone"></i>
-                                        <p class="contact-us-top-nav ml-3 "><a href=""> +32 3 296 82 66</a></p>
+                                        <p class="contact-us-top-nav ml-3 "><a href=""> {{ $contactInfo->contactNumber
+                                                }}</a></p>
 
                                     </div>
-                                    <div class="mysetting">
-                                        <div class="tongle">
-                                            <div class="language-dropdown">
-                                                <a id="current-language" data-lang="{{ $current_locale }}"
-                                                    class="language-link" href="">
-                                                    <img id="current-flag" alt=""
-                                                        src="{{ asset('frontend/assets/images/photos/flag/' . ucfirst($current_locale) . '.png') }}">
-                                                    <span id="current-locale">{{
-                                                        config('app.available_locales')[$current_locale] }}</span>
-                                                </a>
-                                                <div id="language-list" class="language-list">
-                                                    @foreach(config('app.available_locales') as $locale_code =>
-                                                    $locale_name)
-                                                    @if($locale_code !== $current_locale)
-                                                    <a class="language-option"
-                                                        href="{{ route('language.switch', $locale_code) }}"
-                                                        data-locale="{{ $locale_code }}"
-                                                        data-locale-name="{{ $locale_name }}">
-                                                        <img alt=""
-                                                            src="{{ asset('frontend/assets/images/photos/flag/' . ucfirst($locale_code) . '.png') }}">
-                                                        <span>{{ $locale_name }}</span>
-                                                    </a>
-                                                    @endif
-                                                    @endforeach
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+
                                 </div>
                             </li>
                             <li>
@@ -416,96 +764,77 @@
                         <form id="search-form" class="form-inline">
                             <input type="text" id="search" placeholder="Search..." class="form-control"
                                 autocomplete="off">
-                            <button type="submit" class="btn btn-primary">Search</button>
+                            <button type="submit" class="btn btn-primary">{{ __('Zoeken') }}</button>
                         </form>
-
                         <a class="menu-trigger">
                             <span>Menu</span>
                         </a>
                     </div>
-
-
                 </nav>
             </div>
         </div>
     </div>
 </header>
+
+
 <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const currentLanguage = document.getElementById('current-language');
-        const languageList = document.getElementById('language-list');
-        const currentLocaleSpan = document.getElementById('current-locale');
-        const currentFlagImg = document.getElementById('current-flag');
-        let isMobile = false;
+    $(document).ready(function() {
 
-        // Check if the device is a mobile device
-        if (/Mobi|Android/i.test(navigator.userAgent)) {
-            isMobile = true;
-        }
-
-        // Function to update URL with selected language
-        const updateURL = (locale) => {
-        const url = new URL(window.location.href);
-        url.searchParams.set('lang', locale);
-        window.history.replaceState({}, '', url.toString());
-    };
-
-    // Toggle dropdown visibility on language button click for mobile devices
-    if (isMobile) {
-        currentLanguage.addEventListener('click', (event) => {
-            event.preventDefault(); // Prevent default link behavior
-            languageList.style.display = 'block';
-        });
-    } else {
-        // Show dropdown on language button hover for desktop devices
-        currentLanguage.addEventListener('mouseenter', () => {
-            languageList.style.display = 'block';
+        $('.flag-default').on('click', function() {
+            $('.language-dropdown').toggleClass('dropdown-show');
         });
 
-        currentLanguage.addEventListener('mouseleave', () => {
-            setTimeout(() => {
-                if (!languageList.matches(':hover')) {
-                    languageList.style.display = 'none';
-                }
-            }, 200);
+
+        $('#english-language').on('click', function() {
+
+            var usSVG = $('#english-language svg').parent().html();
+            var belgiumSVG = $('#belgium-language svg').parent().html();
+
+
+            $('#belgium-language svg').parent().html(usSVG);
+            $('#english-language svg').parent().html(belgiumSVG);
+
+
+            $('#belgium-language i').remove();
+            $('#english-language i').remove();
+
+            var caretIcon = '<i class="fa-solid fa-caret-down"></i>';
+            $('#belgium-language').append(caretIcon);
+            $('#english-language').append(caretIcon);
+
+            // Hide the dropdown after swap
+            $('.language-dropdown').removeClass('dropdown-show');
         });
+        $('.show-dropdown').on('click', function() {
+        $('.user-dropdown').toggleClass('dropdown-show');
+    });
+
+    $('.accept-cookies').on('click', function() {
+        $('.cookies-popup').addClass('cookies-display-none');
+    });
+
+    $('.cancle-cookies').on('click', function() {
+        $('.cookies-popup').addClass('cookies-display-none');
+});
+    });
+   
+</script>
+<script>
+    var modal = document.getElementById("newModal");
+    var btn = document.getElementById("modalbtn");
+    var span = document.getElementsByClassName("modal-close")[0];
+
+    btn.onclick = function () {
+        modal.style.display = "block";
     }
 
-    // Listen for language option clicks
-    languageList.querySelectorAll('.language-option').forEach(option => {
-        option.addEventListener('click', (event) => {
-            event.preventDefault(); // Prevent default link behavior
+    span.onclick = function () {
+        modal.style.display = "none";
+    }
 
-            const selectedLocale = option.getAttribute('data-locale');
-            const selectedLocaleName = option.getAttribute('data-locale-name');
-            const selectedLocaleFlag = option.querySelector('img').getAttribute('src');
-
-            // Update current language display
-            currentLocaleSpan.textContent = selectedLocaleName;
-            currentFlagImg.setAttribute('src', selectedLocaleFlag);
-            currentLanguage.setAttribute('data-lang', selectedLocale);
-
-            // Update URL with selected language
-            updateURL(selectedLocale);
-
-            // Prevent default link behavior
-            event.stopPropagation();
-            event.stopImmediatePropagation();
-            return false;
-        });
-    });
-
-    // Prevent touch events on dropdown from closing it immediately
-    languageList.addEventListener('click', (event) => {
-        event.stopPropagation();
-    });
-
-    // Close the dropdown when tapping outside of it on mobile devices
-    document.addEventListener('touchstart', (event) => {
-            if (isMobile && !currentLanguage.contains(event.target) && !languageList.contains(event.target)) {
-                languageList.style.display = 'none';
-            }
-        });
-    });
-
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
 </script>

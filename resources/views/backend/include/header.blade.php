@@ -21,5 +21,5 @@
     <link href="{{ asset('backend/assets/css/style.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('backend/assets/css/icons.min.css') }}" rel="stylesheet" type="text/css">
     <script src="{{ asset('backend/assets/js/config.js') }}"></script>
-    
+   </head>
 </head>

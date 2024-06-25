@@ -16,7 +16,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Laravel'),
+    'name' => env('APP_NAME', 'Nimainteriors'),
 
     /*
     |--------------------------------------------------------------------------
@@ -83,7 +83,7 @@ return [
     |
     */
 
-    'locale' => 'be',
+    'locale' => 'nl_be',
 
     /*
     |--------------------------------------------------------------------------
@@ -96,7 +96,7 @@ return [
     |
     */
 
-    'fallback_locale' => 'be',
+    'fallback_locale' => 'nl_be',
 
     /*
     |--------------------------------------------------------------------------
@@ -108,8 +108,9 @@ return [
     */
 
     'available_locales' => [
-        'en' => 'EN',
-        'be' => 'BE',
+        'en' => 'en',
+        'nl_be' => 'nl_be',
+        'nl'=> 'nl',
         // Add other locales as needed
     ],
 
@@ -183,6 +184,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        App\Providers\DatabaseTranslationServiceProvider::class,
     ])->toArray(),
 
     /*

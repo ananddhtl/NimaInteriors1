@@ -2,39 +2,103 @@
 @section('title', 'change password :: Nimainteriors.com')
 
 @section('content')
+    @if (session('success'))
+        <div id="snackbar">
+            {{ session('success') }}
+        </div>
+    @endif
+    <div id="newModal" class="new-modal">
 
-    <section class="page profile">
-        <div class="container-fluid customer-container">
-            <div class="row-height c-account">
-                <div class="row">
-                    @include('frontend.customer.account.sidebar')
-                    <div class="col-lg-10 right-form show-d">
-                        <div class="profile-setting">
-                            <div class="card">
-                                <div class="card-header" id="card-header">Personal Profile</div>
-                                <div class="card-body">
-                                    <p><strong>Name:</strong>{{ auth()->user()->fullname }}</p><br>
-                                    <p><strong>Email:</strong> {{ auth()->user()->email }}</p>
-
-
-                                </div>
-
-                                <div class="login-social d-flex">
-                                    <a href="{{route('profile')}}" class="social_bt facebook m-2">Edit Profile</a>
-                                    <a href="{{route('password')}}" class="social_bt facebook m-2">Update Password</a>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-
+        <div class="new-modal-content">
+            <div class="new-modal-header">
+                <div class="address-modal-title">
+                    <h4>Update Information</h4>
+                </div>
+                <div class="close-modal">
+                    <span class="modal-close">&times;</span>
                 </div>
 
+
+            </div>
+            <div class="new-modal-body">
+                <form method="POST" action="{{ route_with_locale('profile.update') }}">
+                    @csrf
+                    <div class="address-change">
+                        <div class="address-box">
+                            <label for="">Full Name : <span>*</span></label>
+                            <input type="text" id="name" name="name" value="{{ auth()->user()->fullname }}"
+                                required>
+                        </div>
+                        <div class="address-box">
+                            <label for="">Gender : <span>*</span></label>
+                            <select id="gender" name="gender" class="form-control" required>
+                                <option value="">Select Gender</option>
+                                <option value="male" {{ auth()->user()->gender == 'male' ? 'selected' : '' }}>Male
+                                </option>
+                                <option value="female" {{ auth()->user()->gender == 'female' ? 'selected' : '' }}>Female
+                                </option>
+                                <option value="other" {{ auth()->user()->gender == 'other' ? 'selected' : '' }}>Other
+                                </option>
+                            </select>
+                        </div>
+                        <div class="address-box">
+                            <label for="">Mobile No : <span>*</span></label>
+                            <input type="number" id="email" name="phonenumber"
+                                value="{{ auth()->user()->phonenumber }}" required>
+                        </div>
+                        <div class="address-box">
+                            <label for="">DOB : <span>*</span></label>
+                            <input type="date" id="email" name="dob" value="{{ auth()->user()->dob }}" required>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
             </div>
 
         </div>
-    </section>
 
+    </div>
+    <div class="container">
+        <div class="user-profile">
+            @include('frontend.customer.account.sidebar')
+            <div class="user-description">
+                <h5>Your Information</h5>
+
+                <div class="user-info address-billing">
+                    <ul>
+
+                        <li><strong>Full Name:</strong> {{ auth()->user()->fullname }}</li>
+                        <li><strong>Gender:</strong> {{ auth()->user()->gender }}</li>
+                        <li><strong>Contact :</strong> {{ auth()->user()->phonenumber }}</li>
+                        <li><strong>DOB:</strong> {{ auth()->user()->dob }}</li>
+
+
+                        <p id="modalbtn" class="edit-address">Edit</p>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <script>
+        var modal = document.getElementById("newModal");
+        var btn = document.getElementById("modalbtn");
+        var span = document.getElementsByClassName("modal-close")[0];
+
+        btn.onclick = function() {
+            modal.style.display = "block";
+        }
+
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
 @endsection
 
 {{-- <script>

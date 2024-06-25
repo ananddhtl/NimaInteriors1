@@ -16,7 +16,18 @@
                         <input autocomplete="off" type="text" name="search" id="searchforsubgroup"
                             onkeyup="selectSubGroupFromTable(document.getElementById('itemgroup_id').value);"
                             class="form-control" placeholder="Search Subgroup">
-                    </div>
+                    </div>^
+                    {{-- <div class="form-group">
+                        <label for="itemgroup_id">Select Item  sub Group:</label>
+                        <select class="form-control" id="itemsubgroup_id"
+                            onchange="putGroupNameAndSubGroupIdInTextField(this.value, this.options[this.selectedIndex].text)">
+                            <option value="">Select Item Sub Group</option>
+                            @foreach ($itemsubgroup as $subgroup)
+                                <option value="{{ $subgroup->id }}">{{ $subgroup->groupName }}</option>
+                            @endforeach
+                        </select>
+
+                    </div> --}}
                     <div>
                         <table style="width: 100%" id="DataTableForSubgroup" class="table table-striped">
                             <thead>
@@ -140,7 +151,70 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-8">
+                <div class="col-7">
+                    <div class="card">
+                        <div class="card-body">
+
+
+                            <div class="table-responsive">
+                                <table class="table mb-0">
+                                    <thead>
+                                        <tr>
+
+                                            <th>Item Name</th>
+                                            {{-- <th>Item Details</th> --}}
+                                            {{-- <th>P.Unit</th> --}}
+                                            <th>Thumbnail</th>
+                                            <th>Status</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($itemsdetails as $item)
+                                            <tr>
+
+                                                <th>{{ $item->itemName }}</th>
+                                                {{-- <th>{{ $item->itemDetails }}</th> --}}
+                                                {{-- <th>{{ $item->units }}</th> --}}
+                                                <td>
+                                                    @if (!empty($item->thumbnail))
+                                                        <img height="70px;" src="{{ $item->thumbnail }}" alt="">
+                                                    @else
+                                                        <img height="70px;" src="{{ asset('defaultimage.jpg') }}"
+                                                            alt="">
+                                                    @endif
+                                                </td>
+                                                <th>
+                                                    <div class="form-check form-switch">
+                                                        <input type="checkbox" class="form-check-input"
+                                                            id="flexSwitchCheck{{ $item->id }}"
+                                                            onchange="toggleStatus('{{ $item->id }}')"
+                                                            {{ $item->status ? 'checked' : '' }}
+                                                            {{ $item->isNonChangeable ? 'disabled' : '' }}>
+                                                        <input type="hidden" name="status{{ $item->id }}"
+                                                            value="{{ $item->status ? '1' : '0' }}">
+                                                    </div>
+                                                </th>
+                                                <td>
+                                                    <a href="{{ route('admin.addunitdetails', ['id' => $item->id]) }}"
+                                                        class="btn btn-info">Add Details</a>
+                                                    <a href="{{ route('admin.viewitemdetails', ['id' => $item->id]) }}"
+                                                        class="btn btn-info">View</a>
+                                                    <a href="{{ route('admin.deleteitemdetails', ['id' => $item->id]) }}"
+                                                        class="btn btn-danger"
+                                                        onclick="return confirm('Are you sure you want to delete this item ?');">Delete</a>
+                                                </td>
+
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-5">
                     <div class="card">
                         <div class="card-body">
 
@@ -175,14 +249,10 @@
                                                 </div>
                                             </div> --}}
                                             <div class="mb-2 row">
-                                                <label class="col-md-2 col-form-label" for="simpleinput">Item
+                                                <label class="col-md-2 col-form-label" for="example-textarea">Item
                                                     Details</label>
                                                 <div class="col-md-10">
-                                                    <input type="text" name="itemDetails" id="simpleinput"
-                                                        class="form-control" placeholder="Enter Item Details">
-                                                    @error('itemDetails')
-                                                        <p class="text-danger">{{ $message }}</p>
-                                                    @enderror
+                                                    <textarea name="itemDetails" class="form-control" id="example-textarea" rows="5"></textarea>
                                                 </div>
                                             </div>
                                             <div class="mb-2 row">
@@ -190,8 +260,9 @@
                                                 <div class="col-md-10">
                                                     <input autocomplete="off" type="hidden" class="form-control"
                                                         data-bs-toggle="modal" data-bs-target="#myModalForGroup"
-                                                        id="itemgroup_idval" placeholder="Select Group" name="itemgroup_id"
-                                                        value="{{ @$itemsdetail->itemgroup_id }}" readonly>
+                                                        id="itemgroup_idval" placeholder="Select Group"
+                                                        name="itemgroup_id" value="{{ @$itemsdetail->itemgroup_id }}"
+                                                        readonly>
 
                                                     <input autocomplete="off" type="text" class="form-control"
                                                         data-bs-toggle="modal" data-bs-target="#myModalForGroup"
@@ -242,13 +313,13 @@
                                                     @enderror
                                                 </div>
                                             </div>
-                                            <div class="mb-2 row">
+                                            {{-- <div class="mb-2 row">
                                                 <label class="col-md-2 col-form-label" for="simpleinput">Unit</label>
                                                 <div class="col-md-10">
                                                     <input type="text" name="units" id="simpleinput"
                                                         class="form-control" placeholder="Enter Unit">
                                                 </div>
-                                            </div>
+                                            </div> --}}
                                             <div class="mb-2 row">
                                                 <label class="col-md-2 col-form-label" for="simpleinput">Delivery
                                                     Estimation Time</label>
@@ -257,7 +328,7 @@
                                                         class="form-control" placeholder="Enter Delivery Estimation">
                                                 </div>
                                             </div>
-                                            <div class="mb-2 row">
+                                            {{-- <div class="mb-2 row">
                                                 <label class="col-md-2 col-form-label">Status</label>
                                                 <div class="col-md-10">
                                                     <select name="status" class="form-control">
@@ -265,7 +336,7 @@
                                                         <option value="1">Approved</option>
                                                     </select>
                                                 </div>
-                                            </div>
+                                            </div> --}}
 
                                             <button type="submit" class="btn btn-primary">Submit</button>
                                         </form>
@@ -281,7 +352,7 @@
             </div>
 
             <div class="row">
-                <div class="col-lg-8">
+                {{-- <div class="col-lg-8">
                     <div class="card">
                         <div class="card-body">
 
@@ -343,7 +414,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
 
 
             </div>
@@ -424,7 +495,7 @@
         }
 
         function putGroupNameAndGroupIdInTextField(groupId, groupName) {
-            
+
             $("#itemgroup_idval").val(groupId);
             $("#groupName").val(groupName);
             $("#myModalForGroup").modal('hide');
@@ -479,6 +550,34 @@
         function putGroupNameInSearchField(selectElement) {
             var groupName = selectElement.options[selectElement.selectedIndex].text;
             $('#search').val(groupName);
+        }
+    </script>
+    <script>
+        function toggleStatus(itemId) {
+            var checkbox = $('#flexSwitchCheck' + itemId);
+            var status = checkbox.is(':checked') ? 1 : 0;
+
+            $.ajax({
+                url: '{{ route('admin.updatestatusitem') }}',
+                type: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    id: itemId,
+                    status: status
+                },
+                success: function(response) {
+                    alert('Status updated successfully');
+                },
+                error: function(xhr) {
+                    var errorMessage = 'Error updating status';
+                    if (xhr.responseJSON && xhr.responseJSON.error) {
+                        errorMessage = xhr.responseJSON.error;
+                    }
+                    alert(errorMessage);
+                    window.location.reload();
+                    console.log('Error updating status:', errorMessage);
+                }
+            });
         }
     </script>
 @endsection

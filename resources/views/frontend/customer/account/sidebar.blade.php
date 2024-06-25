@@ -1,18 +1,35 @@
-<div class="col-lg-2 left-bar s-opt">
-    <h4>Manage My Account</h4>
+<div class="user-nav">
+    <div class="user-image">
+        <img src="{{ asset('frontend/assets/images/user-profile.png') }}" alt="">
+    </div>
+    <div class="user-detail-profile">
+        <h6>{{ auth()->user()->fullname }}</h6>
+        <p>{{ auth()->user()->email }}</p>
+    </div>
     <ul>
-        <a href="{{route('dashboard')}}">Profile</a>
-        <a href="{{route('addressbook')}}">Address Book</a>
-        <li data-content="order" data-header="Order History">Payment Options</li>
+        <li>
+            <a href="{{ route_with_locale('dashboard') }}"> <i class="fa-solid fa-chevron-right"></i>User Information</a>
+        </li>
+        <li>
+            <a href="{{ route_with_locale('password') }}"> <i class="fa-solid fa-chevron-right"></i> Change
+                Password</a>
+        </li>
+        <li>
+            <a href="{{ route_with_locale('orderhistory') }}"> <i class="fa-solid fa-chevron-right"></i> Your Order</a>
+        </li>
+        <li>
+            <a href="{{ route_with_locale('addressbook') }}"> <i class="fa-solid fa-chevron-right"></i> Address Book</a>
+        </li>
+        <li>
+            <a href="{{ route_with_locale('getwishlist') }}"> <i class="fa-solid fa-chevron-right"></i>Wish List</a>
+        </li>
+        <li>
+            <form id="logout-form" action="{{ route_with_locale('customer.logout') }}" method="POST" style="display: none;">
+                @csrf
+            </form>
+            <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                <i class="fa-solid fa-chevron-right"></i> Log Out
+            </a>
+        </li>
     </ul>
-    <h4>My Orders</h4>
-    <ul>
-        <li data-content="profile" class="active" data-header="Profile Settings">Profile</li>
-        <li data-content="address" data-header="Address Settings">Address Book</li>
-        <li data-content="order" data-header="Order History">Payment Options</li>
-    </ul>
-    <h4>My Reviews</h4>
-   
-    <h4>My WishLists</h4>
-    
 </div>

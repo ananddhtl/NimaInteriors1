@@ -34,7 +34,7 @@ class AddonCategoryController extends Controller
                 $addoncategory = AddonCategory::find($request->group_idEdit);
                 $addoncategory->title = $request->title;
                 $addoncategory->update();
-                return redirect()->route('admin.addonitemcatgeory')->with('success', 'Project created successfully!');
+                return redirect()->route_with_locale('admin.addonitemcatgeory')->with('success', 'Project created successfully!');
             } else {
                 $request->validate(['title' => 'required|unique:addon_categories']);
                 $addoncategory = new AddonCategory();

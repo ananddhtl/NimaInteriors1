@@ -98,7 +98,7 @@
                                     <tbody>
                                         @foreach ($data as $item)
                                             <tr>
-
+                                                @dd($item)
                                                 <th>{{ $item->groupName }}</th>
                                                 <th>
                                                     <div class="form-check form-switch">

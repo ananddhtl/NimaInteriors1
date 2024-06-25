@@ -12,9 +12,8 @@ class BrandController extends Controller
      */
     public function index()
     {
-       
-        $data=Brand::orderBy("id","desc")->take(10)->get();
-       return view('backend.inventory.brand',compact('data'));
+        $brands = Brand::orderBy("id", "desc")->take(10)->get();
+        return view('backend.inventory.brand', compact('brands'));
     }
 
     /**
@@ -22,95 +21,83 @@ class BrandController extends Controller
      */
     public function create()
     {
-        //
+        return view('backend.inventory.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-{   
-    if ($request->ajax()) {
-           
-        $item = Brand::find($request->id);
-        if ($item) {
-            $item->status = $request->status;
-            $item->save();
-            return response()->json(['success' => true, 'message' => 'Status updated successfully.']);
-        }
-        return response()->json(['success' => false, 'message' => 'Item not found.'], 404);
-    }
-    if($request->id)
-    { 
-        $request->validate([
-            'companyName' => 'required',
-            'address' => 'required',
-            'contactNumber' => 'required',
-        ]);
-
-        $company = Brand::find($request->id);                
-        $company->companyName = $request->companyName; 
-        $company->address = $request->address;      
-        $company->contactNumber = $request->contactNumber;  
-        $company->update();
-        
-        return redirect()->back()->with('company_updated', $request->companyName . ' is successfully updated'); 
-    }
-    else
-    {
+    {  
         $request->validate([
             'companyName' => 'required|unique:brands',
             'address' => 'required',
             'contactNumber' => 'required|unique:brands',
+            'email' => 'required|email|max:255',
         ]);
 
         $company = new Brand();
-        $company->companyName = $request->companyName; 
-        $company->address = $request->address;      
-        $company->contactNumber = $request->contactNumber; 
+        $company->companyName = $request->input('companyName'); 
+        $company->address = $request->input('address');      
+        $company->contactNumber = $request->input('contactNumber'); 
+        $company->email = $request->input('email'); 
         $company->status = 0;           
         $company->save();
         
-        return redirect()->back()->with('company_added', $request->companyName . ' added successfully');     
-    }   
-}
-
-
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Brand $brand)
-    {
-        //
+        return redirect()->route('admin.addbrand')->with('company_added', $request->input('companyName') . ' added successfully');     
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Brand $brand, $id)
+    public function edit($id)
     {
-        $data = Brand::orderBy("id","desc")->where('status','0')->take(10)->get();
+        $brands = Brand::orderBy("id","desc")->where('status','0')->take(10)->get();
         $editbrand=Brand::FindorFail($id);
-        return view('backend.inventory.brand',compact('data','editbrand'));
+        return view('backend.inventory.editbrand',compact('brands','editbrand'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Brand $brand)
+
+     public function update(Request $request, $id)
+     {
+         $request->validate([
+             'companyName' => 'required|unique:brands,companyName,'.$id,
+             'address' => 'required',
+             'contactNumber' => 'required|unique:brands,contactNumber,'.$id,
+             'email' => 'required|email|max:255',
+         ]);
+ 
+         $brand = Brand::find($id);
+         $brand->companyName = $request->input('companyName');
+         $brand->address = $request->input('address');
+         $brand->contactNumber = $request->input('contactNumber');
+         $brand->email = $request->input('email');
+         $brand->save();
+ 
+         return redirect()->route('admin.addbrand')->with('company_updated', 'Company updated successfully!');
+     }
+     public function updatestatus(Request $request)
     {
-        //
+        $id = $request->input('id');
+        $status = $request->input('status');
+
+        $company = Brand::findOrFail($id);
+        $company->status = $status;
+        $company->save();
+
+        return response()->json(['message' => 'Status updated successfully']);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Brand $brand, $id)
+    public function destroy($id)
     {
-        $company=Brand::findorfail($id);  
-           
+        $company = Brand::findOrFail($id);  
         $company->delete();
-        return back()->with('message','Brand is delete successfully');
+        return back()->with('message', 'Brand is deleted successfully');
     }
 }

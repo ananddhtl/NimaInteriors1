@@ -9,7 +9,8 @@
 				<div class="container">
 					<div class="row">
 						<div class="offset-lg-3 col-lg-6">
-							<h1>Realisaties</h1>
+							<h1>{{$project->title_translation}}</h1>
+							
 						</div>
 					</div>
 				
@@ -37,7 +38,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-lg-12">
+					{{-- <div class="col-lg-12">
 						<!-- ***** Pagination Start ***** -->
 						<nav>
 							<ul class="pagination justify-content-center">
@@ -59,7 +60,7 @@
 							</ul>
 						</nav>
 						<!-- ***** Pagination End ***** -->
-					</div>
+					</div> --}}
 				</div>
 			</div>
 		</div>

@@ -15,3 +15,31 @@
 
 <!-- Global Init -->
 <script src="{{asset('frontend/assets/js/custom.js')}}"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        updateWishlistCount();
+    });
+
+    function addToWishlist(item, parentDiv) {
+        let wishlist = localStorage.getItem('wishlist');
+        wishlist = wishlist ? JSON.parse(wishlist) : [];
+
+        if (!wishlist.some(wishlistItem => wishlistItem.id === item.id)) {
+            wishlist.push(item);
+            localStorage.setItem('wishlist', JSON.stringify(wishlist));
+            showSnackbar('Item added to wishlist!');
+        } else {
+            showSnackbar('Item already in wishlist!');
+            parentDiv.remove();
+        }
+
+        
+        updateWishlistCount();
+    }
+
+    function updateWishlistCount() {
+        let wishlist = localStorage.getItem('wishlist');
+        wishlist = wishlist ? JSON.parse(wishlist) : [];
+        document.getElementById('wishlist-count').innerHTML = '<i class="fa-solid fa-heart"></i>' + wishlist.length;
+    }
+</script>

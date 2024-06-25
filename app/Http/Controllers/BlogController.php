@@ -58,7 +58,7 @@ class BlogController extends Controller
         $blog->save();
         
        
-        return redirect()->route('admin.listblog')->with('success', 'Blog post created successfully!');
+        return redirect()->route_with_locale('admin.listblog')->with('success', 'Blog post created successfully!');
     }
     
     /**

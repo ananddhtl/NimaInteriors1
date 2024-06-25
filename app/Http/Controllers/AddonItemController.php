@@ -39,7 +39,7 @@ class AddonItemController extends Controller
                 $addonitem->category_id = $request->category_id;
                 $addonitem->title = $request->title;
                 $addoncategory->update();
-                return redirect()->route('admin.addonitemcatgeory')->with('success', 'Project created successfully!');
+                return redirect()->route_with_locale('admin.addonitemcatgeory')->with('success', 'Project created successfully!');
             } else {
                 $request->validate(['title' => 'required|unique:addon_categories','category_id' => 'required']);
                 $addoncategory = new AddonItem();

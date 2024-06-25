@@ -30,13 +30,14 @@ font & reset css
 */
 
 
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
 
 
 body {
-    background: #f5f5f5;
-}
+    background: #f5f5f5 !important;
+    font-family: "Roboto", sans-serif!important;
+} */
 
 /* 
 ---------------------------------------------
@@ -214,7 +215,7 @@ header
     -moz-transition: all 0.3s ease 0s;
     -o-transition: all 0.3s ease 0s;
     transition: all 0.3s ease 0s;
-    max-height: 3.75rem;
+    max-height: 4rem;
 }
 .header-area .main-nav .nav {
     float: right;
@@ -360,7 +361,7 @@ header
     width: 32px;
     height: 40px;
     text-indent: -9999em;
-    z-index: 99;
+    z-index: 90;
     right: 40px;
     display: none;
 }
@@ -492,6 +493,7 @@ header
 }
 
 .container-show .h-top{
+    display:flex;
     justify-content: space-between;
 }
 .myaccount{
@@ -3119,8 +3121,10 @@ contact
 
     font-size: 14px;
 }
-.contact-bottom .contact-form input[type="text"]::placeholder {
-    color: #a1a0a0;
+.contact-bottom .contact-form input[type="text"]::placeholder,
+.contact-bottom .contact-form input[type="email"]::placeholder,
+.contact-bottom .contact-form textarea::placeholder{
+    color: #202020;
 }
 .contact-bottom .contact-form input:focus,
 .contact-bottom .contact-form textarea:focus {
@@ -3138,7 +3142,7 @@ contact
 }
 .contact-form .form-u {
     border: 1px solid white;
-    color: #a1a0a0;
+    color: #1f1f1f;
     font-size: 14px;
     padding-left: 20px;
     height: 50px;
@@ -3579,12 +3583,20 @@ customer  page
 .customer-container .hidden{
     display: none;
 }
+
 @media (min-width:1200px){
     .customer-container{
         max-width:1050px;
     }
     
 }
+@media (max-width:760px) {
+    .customer-container .row-height {
+      
+        margin-top: 100px;
+    }
+}
+
 /* 
 ---------------------------------------------
 Shop page
@@ -3763,9 +3775,10 @@ S {
     font-size: 14px;
 }
 .productlisting a{
-    color:#666;
+    /* color:#666; */
     font-size: 14px;
 }
+
 /* category */
 .productlisting ul {
     padding-left: 10px;
@@ -4565,3 +4578,514 @@ form>input{
         }
     }
 
+
+
+  /* new style for model */
+
+  
+/*user profile*/
+.user-profile {
+    display: flex;
+    gap: 15px;
+    margin-top: 200px;
+    align-items: flex-start;
+  }
+  
+  .user-detail-profile {
+    text-align: center;
+  }
+  
+  .user-nav {
+    width: 30%;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  }
+  
+  .user-description {
+    width: 70%;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  }
+  
+  .user-nav ul {
+    margin-top: 10px;
+  }
+  
+  .user-nav ul li {
+    padding: 8px;
+    margin-left: 20px;
+  }
+  
+  .user-nav ul li a {
+    color: grey;
+  }
+  
+  .user-nav ul li a i {
+    font-size: 13px;
+    margin-right: 7px;
+  }
+  
+  .user-image {
+    width: 100%;
+    text-align: center;
+    margin-top: 40px;
+    margin-bottom: 20px;
+  }
+  
+  .user-image img {
+    height: 80px;
+    width: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  
+  .user-description h5 {
+    padding: 15px;
+    border-bottom: 1px solid rgb(228, 228, 228);
+  }
+  
+  .user-info {
+    padding: 15px;
+  }
+  
+  .user-info form .whole-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  
+  }
+  
+  .user-info form {
+    margin-left: 15px;
+  }
+  
+  .user-info form button {
+    margin-top: 20px;
+    padding: 8px 30px;
+    border: none;
+    background-color: #8e654e;
+    color: white;
+  }
+  
+  .info-box {
+    width: calc(50% - 20px);
+  }
+  
+  .info-box label {
+    width: 100%;
+  }
+  
+  .info-box input {
+    width: 100%;
+    padding: 7px;
+    margin-top: 10px;
+  }
+  
+  .error-message p {
+    color: red;
+    margin-top: 10px;
+  }
+  
+  .user-nav ul li a.active {
+    color: #000000;
+    font-weight: 500;
+  }
+  
+  .your-product-flex {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 15px;
+    gap: 10px;
+  }
+  
+  .your-product-flex .card {
+    width: calc(25% - 20px);
+  }
+  
+  /*user profile*/
+  
+  .add-to-cart a {
+    cursor: pointer;
+  }
+  
+  /*snack bar*/
+  #snackbar {
+    visibility: hidden;
+    width: auto;
+    margin-left: -125px;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 2px;
+    padding: 16px;
+    position: fixed;
+    z-index: 99999;
+    right: 5%;
+    top: 80px;
+    font-size: 17px;
+  }
+  
+  #snackbar.show {
+    visibility: visible;
+    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  }
+  
+  @-webkit-keyframes fadein {
+    from {
+      top: 0;
+      opacity: 0;
+    }
+  
+    to {
+      top: 80px;
+      opacity: 1;
+    }
+  }
+  
+  @keyframes fadein {
+    from {
+      top: 0;
+      opacity: 0;
+    }
+  
+    to {
+      top: 80px;
+      opacity: 1;
+    }
+  }
+  
+  @-webkit-keyframes fadeout {
+    from {
+      top: 80px;
+      opacity: 1;
+    }
+  
+    to {
+      top: 0;
+      opacity: 0;
+    }
+  }
+  
+  @keyframes fadeout {
+    from {
+      top: 80px;
+      opacity: 1;
+    }
+  
+    to {
+      top: 0;
+      opacity: 0;
+    }
+  }
+  
+  /*snack bar*/
+  
+  .default-address {
+    display: flex;
+    gap: 20px;
+    margin-top: 5px;
+  }
+  
+  .default-address li {
+    background-color: rgb(236, 236, 236);
+    font-size: 14px;
+    padding: 6px;
+    border-radius: 5px;
+  }
+  
+  .address-billing ul {
+    position: relative;
+  }
+  
+  .address-billing ul li {
+    margin-top: 5px;
+  }
+  
+  .edit-address {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: blue;
+    cursor: pointer;
+  }
+  
+  /*modal popup*/
+  .new-modal {
+    display: none;
+    position: fixed;
+    z-index: 999999999;
+    padding-top: 100px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+  
+  .new-modal-content {
+    position: relative;
+    background-color: #fefefe;
+    margin: auto;
+    padding: 0;
+    border: 1px solid #888;
+    width: 55%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
+    animation-name: animatetop;
+    animation-duration: 0.4s;
+  }
+  
+  @-webkit-keyframes animatetop {
+    from {
+      top: -300px;
+      opacity: 0
+    }
+  
+    to {
+      top: 0;
+      opacity: 1
+    }
+  }
+  
+  @keyframes animatetop {
+    from {
+      top: -300px;
+      opacity: 0
+    }
+  
+    to {
+      top: 0;
+      opacity: 1
+    }
+  }
+  
+.modal-close {
+    color: black;
+  
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .modal-close:hover,
+  .modal-close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+  .new-modal-header {
+    padding: 10px 16px;
+    border-bottom: 1px solid rgb(189, 188, 188);
+    display: flex;
+    margin-bottom: 10px;
+  }
+  
+  .address-modal-title {
+    width: 50%;
+    display: flex;
+    align-items: center;
+  }
+  
+  .close-modal {
+    width: 50%;
+    text-align: right;
+  }
+  
+  .new-modal-body {
+    padding: 15px 16px;
+  }
+  
+  .address-box label {
+    width: 100%;
+    margin-bottom: 5px;
+  }
+  
+  .address-box input {
+    width: 100%;
+    padding: 8px;
+  }
+  
+  .new-modal-body form {
+    margin-left: 10px;
+  }
+  
+  .address-change {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-bottom: 20px;
+  
+  }
+  
+  .address-box {
+    width: calc(50% - 20px);
+  }
+  
+  /*modal pop up*/
+  
+  .payment-success {
+    text-align: center;
+    margin: 30px 0px;
+  }
+  
+  .payment-success img {
+    height: 60px;
+    width: auto;
+    margin-bottom: 20px;
+  }
+  
+  .payment-success h5 {
+    color: black;
+    font-size: 28px;
+    margin-bottom: 20px;
+  }
+  
+  .payment-success p {
+    font-size: 18px;
+    margin-bottom: 20px;
+  }
+  
+  .go-home-purchas {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+  }
+  
+  .go-home-purchas a {
+    background-color: #8e654e;
+    color: black;
+    padding: 9px 23px;
+    color: white;
+  }
+  
+  .cookies-display-none {
+    display: none !important;
+  }
+  
+  .cookies-popup {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: #000000c2;
+    z-index: 99999999999999;
+  }
+  
+  .cookies-modal {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    width: 100%;
+    /* background-color: rgb(83, 55, 39); */
+    background-color: rgb(233, 233, 233);
+    padding: 22px 0px;
+  }
+  
+  .cookies-modal .container {
+    display: flex;
+  }
+  
+  .cookies-text {
+    width: 70%;
+  }
+  
+  .cookies-text h2 {
+    color: black;
+    margin-bottom: 10px;
+  }
+  
+  .cookies-text p {
+    font-size: 18px;
+  }
+  
+  .cookies-button {
+    width: 30%;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    gap: 10px;
+    padding-top: 10px;
+  }
+  
+  .cookies-button a {
+    cursor: pointer;
+  }
+  
+  .cookies-button a:first-child {
+    background-color: #8e654e;
+    padding: 10px 15px;
+    color: white;
+    transition: 0.3s;
+  }
+  
+  .cookies-button a:first-child:hover {
+    opacity: 0.8;
+  }
+  
+  .cookies-button a:nth-child(2) {
+    background-color: black;
+    padding: 10px 20px;
+    color: white;
+    transition: 0.3s;
+    transition: 0.3s;
+  }
+  
+  .cookies-button a:nth-child(2):hover {
+    opacity: 0.8;
+  }
+  
+  
+  .cart-empty{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 30px 0px;
+  }
+  
+  .cart-img{
+    text-align: center;
+  }
+  
+  .cart-img p{
+    margin-top: 30px;
+    font-weight: 500;
+    font-size: 22px;
+    color: rgb(168, 168, 168);
+  }
+  
+  .product-not-found{
+    padding: 20px 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  @media (max-width: 991px) {
+    .header-area .main-nav .menu-trigger {
+      /* top: 40px !important; */
+    }
+  }
+  
+  @media (max-width: 991px) {
+    .user-profile {
+      display: block;
+    }
+  
+    .user-nav {
+      width: 100%;
+      margin-bottom: 15px;
+    }
+  
+    .user-description {
+      width: 100%;
+      margin-bottom: 15px;
+    }
+  }
+  
+  
+  @media (max-width: 550px) {
+    .new-modal-content {
+      width: 95% !important;
+    }
+  }

@@ -72,8 +72,8 @@
                 </div>
             </li> --}}
 
-            <li class="dropdown notification-list">
-                <a class="nav-link dropdown-toggle waves-effect waves-light arrow-none" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+            {{-- <li class="dropdown notification-list"> --}}
+                {{-- <a class="nav-link dropdown-toggle waves-effect waves-light arrow-none" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
                     <i class="mdi mdi-bell font-size-24"></i>
                     <span class="badge bg-danger rounded-circle noti-icon-badge">9</span>
                 </a>
@@ -89,7 +89,7 @@
                                 </a>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
 
                     {{-- <div class="px-1" style="max-height: 300px;" data-simplebar>
 
@@ -199,8 +199,8 @@
                         View All
                     </a> --}}
 
-                </div>
-            </li>
+                {{-- </div> --}}
+            {{-- </li> --}}
 
             <li class="nav-link" id="theme-mode">
                 <i class="bx bx-moon font-size-24"></i>

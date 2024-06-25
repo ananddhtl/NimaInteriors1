@@ -13,15 +13,21 @@
                     </div>
                     <div class="col-lg-6">
                         <div class="d-none d-lg-block">
-                            <ol class="breadcrumb m-0 float-end">
-                                <li class="breadcrumb-item"><a href="javascript: void(0);">
-                                        Item Group</a></li>
-                                <li class="breadcrumb-item active">Add</li>
+                            <ol class="breadcrumb m-0 ">
+                                <li class="breadcrumb-item btn btn-primary"><a href="{{ route('admin.items') }}">
+                                    Back</a></li>
+                              
                             </ol>
                         </div>
                     </div>
                 </div>
             </div>
+            @if (session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
+
             <div class="row">
                 <div class="col-12">
                     <div class="card">
@@ -109,7 +115,7 @@
                 </div><!-- end col -->
             </div>
             <div class="row">
-                <div class="col-4">
+                <div class="col-6">
                     <div class="card">
                         <div class="card-body">
                             <h4 class="page-title mb-0">Items Rates</h4>
@@ -124,37 +130,37 @@
                                             <input autocomplete="off" type="hidden" class="form-control"
                                                 name="commonCode_id" value="{{ @$itemsdetail->id }}"
                                                 placeholder="UnitsStatus">
-                                            <div class="mb-2 row">
+                                            {{-- <div class="mb-2 row">
                                                 <label class="col-md-2 col-form-label" for="simpleinput">Buy rate</label>
                                                 <div class="col-md-10">
                                                     <input autocomplete="off" type="number" class="form-control"
                                                         name="buyrate" placeholder="Buy Rate">
                                                 </div>
-                                            </div>
+                                            </div> --}}
                                             <div class="mb-2 row">
-                                                <label class="col-md-2 col-form-label" for="simpleinput">Sell rate</label>
+                                                <label class="col-md-2 col-form-label" for="simpleinput">Price</label>
                                                 <div class="col-md-10">
                                                     <input autocomplete="off" type="number" class="form-control"
                                                         name="sellrate" placeholder="Sell Rate">
                                                 </div>
                                             </div>
-                                            <div class="mb-2 row">
+                                            {{-- <div class="mb-2 row">
                                                 <label class="col-md-2 col-form-label" for="simpleinput">
                                                     MRP</label>
                                                 <div class="col-md-10">
                                                     <input autocomplete="off" type="number" class="form-control"
                                                         name="mrp" placeholder="MRP">
                                                 </div>
-                                            </div>
+                                            </div> --}}
 
-                                            <div class="mb-2 row">
+                                            {{-- <div class="mb-2 row">
                                                 <label class="col-md-2 col-form-label" for="simpleinput">
                                                     Discount</label>
                                                 <div class="col-md-10">
                                                     <input autocomplete="off" type="number" class="form-control"
                                                         name="dis" placeholder="Discount" value="">
                                                 </div>
-                                            </div>
+                                            </div> --}}
                                             <button type="submit" class="btn btn-primary">Save</button>
 
                                         </form>
@@ -167,7 +173,7 @@
                         </div>
                     </div> <!-- end card -->
                 </div>
-                <div class="col-4">
+                <div class="col-6">
                     <div class="card">
                         <div class="card-body">
 
@@ -214,7 +220,7 @@
                         </div>
                     </div> <!-- end card -->
                 </div>
-                <div class="col-4">
+                <div class="col-6">
                     <div class="card">
                         <div class="card-body">
 
@@ -222,6 +228,15 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div class="p-2">
+                                        @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
                                         <form action="{{ route('admin.storeitemsimage') }}" class="form-horizontal"
                                             role="form" method="POST" enctype="multipart/form-data">
                                             @csrf
@@ -256,6 +271,71 @@
                         </div>
                     </div> <!-- end card -->
                 </div>
+
+                <div class="col-6">
+                    <div class="card">
+                        <div class="card-body">
+
+                            <h4 class="page-title mb-0">Product Description</h4>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="p-2">
+                                        <form action="{{ route('admin.storeproductdetails') }}" class="form-horizontal"
+                                            role="form" method="POST" enctype="multipart/form-data">
+                                            @csrf
+                                            <input autocomplete="off" type="hidden" class="form-control"
+                                                name="commonCode_id" value="{{ @$itemsdetail->id }}"
+                                                placeholder="UnitsStatus">
+
+
+                                            <div class="mb-2 row">
+                                                <label class="col-md-2 col-form-label" for="simpleinput">
+                                                    Description Title</label>
+                                                <div class="col-md-10">
+                                                    <input autocomplete="off" type="text" class="form-control"
+                                                        name="title" placeholder="Enter Product Details Title">
+                                                </div>
+                                            </div>
+                                            <div class="mb-2 row">
+                                                <label class="col-md-2 col-form-label"
+                                                    for="example-textarea">Description</label>
+                                                <div class="col-md-10">
+                                                    <div id="snow-editor" style="height: 300px;"
+                                                        class="ql-container ql-snow">
+                                                        <div class="ql-editor" data-gramm="false" contenteditable="true">
+                                                            <!-- Your Quill editor content will be here -->
+                                                        </div>
+                                                        <div class="ql-clipboard" contenteditable="true" tabindex="-1">
+                                                        </div>
+                                                        <div class="ql-tooltip ql-hidden">
+                                                            <a class="ql-preview" rel="noopener noreferrer"
+                                                                target="_blank" href="about:blank"></a>
+                                                            <input type="text" data-formula="e=mc^2"
+                                                                data-link="https://quilljs.com" data-video="Embed URL">
+                                                            <a class="ql-action"></a><a class="ql-remove"></a>
+                                                        </div>
+                                                    </div>
+
+                                                    <input type="hidden" name="description" id="description-input">
+                                                </div>
+                                            </div>
+
+                                            <button type="submit" class="btn btn-primary">Submit</button>
+
+
+
+
+
+                                        </form>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                            <!-- end row -->
+                        </div>
+                    </div> <!-- end card -->
+                </div>
             </div>
 
 
@@ -267,7 +347,14 @@
         </div> <!-- container -->
 
     </div>
-
+    <script>
+        $(document).ready(function() {
+            $('form').submit(function() {
+                var quillContent = $('.ql-editor').html();
+                $('#description-input').val(quillContent);
+            });
+        });
+    </script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function() {
@@ -378,7 +465,7 @@
                         alert('Data submitted successfully!');
                         // Clear selected items
                         selectedItems = [];
-                        
+
                         if ($('#addonItemsSelect option:selected').length === 1) {
                             $('#addonItemsSelect').val('');
                         }

@@ -58,7 +58,7 @@
                             <div class="row d-flex align-items-center mb-4">
                                 <div class="col-8">
                                     <h2 class="d-flex align-items-center mb-0">
-                                        14
+                                        {{ $customerCount }}
                                     </h2>
                                 </div>
                                 <div class="col-4 text-end">
@@ -103,7 +103,7 @@
                     <!--end card-->
                 </div> <!-- end col-->
 
-                <div class="col-md-6 col-xl-3">
+                {{-- <div class="col-md-6 col-xl-3">
                     <div class="card">
                         <div class="card-body">
                             <div class="mb-4">
@@ -127,12 +127,13 @@
                         </div>
                         <!--end card body-->
                     </div><!-- end card-->
-                </div> <!-- end col-->
+                </div>  --}}
+                <!-- end col-->
             </div>
             <!-- end row-->
 
 
-            <div class="row">
+            {{-- <div class="row">
                 <div class="col-lg-5">
                     <div class="card">
                         <div class="card-body">
@@ -197,10 +198,10 @@
                     <!--end card-->
 
                 </div><!-- end col -->
-            </div>
+            </div> --}}
             <!--end row-->
 
-            <div class="row">
+            {{-- <div class="row">
                 <div class="col-lg-6">
                     <div class="card">
                         <div class="card-body">
@@ -374,7 +375,7 @@
                 </div>
                 <!--end col-->
 
-            </div>
+            </div> --}}
             <!--end row-->
 
         </div> <!-- container -->

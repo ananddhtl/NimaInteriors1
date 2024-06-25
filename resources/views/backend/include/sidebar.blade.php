@@ -122,17 +122,17 @@
                                 <span class="menu-text">Out </span>
                             </a>
                         </li>
-                        <li class="menu-item">
+                        {{-- <li class="menu-item">
                             <a href="{{ route('admin.stockout') }}" class="menu-link">
                                 <span class="menu-text">Item Wise </span>
                             </a>
-                        </li>
+                        </li> --}}
                         <li class="menu-item">
                             <a href="{{ route('admin.groupwise') }}" class="menu-link">
                                 <span class="menu-text">Group Wise </span>
                             </a>
                         </li>
-                        <li class="menu-item">
+                        {{-- <li class="menu-item">
                             <a href="{{ route('admin.stockout') }}" class="menu-link">
                                 <span class="menu-text">Sub Group Wise </span>
                             </a>
@@ -141,7 +141,7 @@
                             <a href="{{ route('admin.stockout') }}" class="menu-link">
                                 <span class="menu-text">Brand Wise </span>
                             </a>
-                        </li>
+                        </li> --}}
                         
                         
                         
@@ -149,6 +149,28 @@
                     </ul>
                 </div>
             </li> 
+
+            <li class="menu-item">
+                <a href="{{ route('homepage.index') }}" class="menu-link waves-effect waves-light">
+                    <span class="menu-icon"><i class="bx bx-home-smile"></i></span>
+                    <span class="menu-text"> Frontend Hero Section</span>
+
+                </a>
+            </li>
+            <li class="menu-item">
+                <a href="{{ route('partners.index') }}" class="menu-link waves-effect waves-light">
+                    <span class="menu-icon"><i class="bx bx-home-smile"></i></span>
+                    <span class="menu-text"> Partners</span>
+
+                </a>
+            </li>
+            <li class="menu-item">
+                <a href="{{ route('translations.index') }}" class="menu-link waves-effect waves-light">
+                    <span class="menu-icon"><i class="bx bx-book icon"></i></span>
+                    <span class="menu-text">Translation Library</span>
+
+                </a>
+            </li>
             <li class="menu-item">
                 <a href="#menuExpages" data-bs-toggle="collapse" class="menu-link waves-effect waves-light">
                     <span class="menu-icon"><i class="bx bx-file"></i></span>
@@ -200,7 +222,7 @@
             <li class="menu-item">
                 <a href="{{ route('admin.listtermandcondition') }}" class="menu-link waves-effect waves-light">
                     <span class="menu-icon"><i class="bx bx-home-smile"></i></span>
-                    <span class="menu-text"> Term and Condition</span>
+                    <span class="menu-text"> Terms and Condition</span>
 
                 </a>
             </li>
@@ -214,18 +236,29 @@
             </li>
             <li class="menu-item">
                 <a href="{{ route('admin.listnormausers') }}" class="menu-link waves-effect waves-light">
-                    <span class="menu-icon"><i class="bx bx-home-smile"></i></span>
-                    <span class="menu-text"> Normal Users</span>
+                    <span class="menu-icon"><i class="bx bx-user icon"></i></span>
+                    <span class="menu-text"> Customers</span>
 
                 </a>
             </li>
             <li class="menu-item">
                 <a href="{{ route('admin.contactusdata') }}" class="menu-link waves-effect waves-light">
-                    <span class="menu-icon"><i class="bx bx-calendar"></i></span>
-                    <span class="menu-text"> Contact Us </span>
+                    <span class="menu-icon"><i class="bx bx-envelope icon"></i></span>
+                    <span class="menu-text"> Inbox </span>
                 </a>
             </li>
-            
+            <li class="menu-item">
+                <a href="{{ route('admin.download') }}" class="menu-link waves-effect waves-light">
+                    <span class="menu-icon"><i class="bx bx-envelope icon"></i></span>
+                    <span class="menu-text"> Brochure </span>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a href="{{ route('admin.orderlist') }}" class="menu-link waves-effect waves-light">
+                    <span class="menu-icon"><i class="bx bx-cart icon"></i></span>
+                    <span class="menu-text"> Orders </span>
+                </a>
+            </li>
         </ul>
     </div>
 </div>

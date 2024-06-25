@@ -18,8 +18,18 @@ use App\Http\Controllers\InventoriesController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\AddonCategoryController;
 use App\Http\Controllers\AddonItemController;
+use App\Http\Controllers\FrontendHomepageController;
 use App\Http\Controllers\ProductImagesController;
 use App\Http\Controllers\NormalUserController;
+use App\Http\Controllers\ProductDescriptionController;
+use App\Http\Controllers\PartnerController;
+use App\Http\Controllers\TranslationController;
+use App\Http\Controllers\EmailController;
+use App\Http\Controllers\OrderController;
+use App\Models\Email;
+
+use Illuminate\Support\Facades\Storage;
+use App\Models\FrontendHomepage;
 use App\Models\ProductImages;
 
 
@@ -30,17 +40,23 @@ Route::prefix('admin')->middleware(['auth:admin'])->group(function () {
 
     Route::get('dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
     Route::get('contactusdata', [ContactUsController::class, 'index'])->name('admin.contactusdata');
+    
+    Route::post('/contact/reply/{id}', [ContactUsController::class, 'reply'])->name('contact.reply');
+
     Route::get('admin/logout', [AdminController::class, 'logout'])->name('admin.logout');
 
     Route::get('addproject', [ProjectController::class, 'addproject'])->name('admin.addproject');
     Route::get('listproject', [ProjectController::class, 'index'])->name('admin.listproject');
     Route::get('editproject/{id}', [ProjectController::class, 'edit'])->name('admin.editproject');
+    Route::post('updateproject/{id}', [ProjectController::class, 'update'])->name('admin.updateproject');
     Route::post('storeproject', [ProjectController::class, 'store'])->name('admin.storeproject');
+    Route::get('deleteproject/{id}', [ProjectController::class, 'destroy'])->name('admin.deleteproject');
 
     Route::get('addprojectimages', [ProjectImagesController::class, 'addprojectimages'])->name('admin.addprojectimages');
     Route::get('listprojectimages', [ProjectImagesController::class, 'index'])->name('admin.listprojectimages');
     Route::post('storeprojectimages', [ProjectImagesController::class, 'store'])->name('admin.storeprojectimages');
     Route::delete('delete-image/{id}', [ProjectImagesController::class, 'destroy'])->name('admin.destroyproductimages');
+    Route::post('/admin/update-image-positions', [ProjectImagesController::class, 'updateImagePositions'])->name('admin.updateImagePositions');
 
 
 
@@ -73,13 +89,16 @@ Route::prefix('admin')->middleware(['auth:admin'])->group(function () {
     Route::get('editsubgroupname/{id}', [ItemSubGroupController::class, 'edit'])->name('admin.editsubgroupname');
     Route::get('deletesubgroupname/{id}', [ItemSubGroupController::class, 'destroy'])->name('admin.deletesubgroupname');
 
+    
     Route::get('brands', [BrandController::class, 'index'])->name('admin.addbrand');
-    Route::post('storebrand', [BrandController::class, 'store'])->name('admin.storebrand');
+    // Route::post('storebrand', [BrandController::class, 'store'])->name('admin.storebrand');
     Route::get('editbrand/{id}', [BrandController::class, 'edit'])->name('admin.editbrand');
+    Route::put('updatebrand/{id}', [BrandController::class, 'update'])->name('admin.updatebrand');
     Route::get('deletebrand/{id}', [BrandController::class, 'destroy'])->name('admin.deletebrand');
+    Route::post('updatestatusbrand', [BrandController::class, 'updatestatus'])->name('admin.updatestatusbrand');
 
     Route::get('items', [InventorySettingsController::class, 'index'])->name('admin.items');
-
+    Route::delete('/inventory/{id}/delete-addon-detail', [InventorySettingsController::class, 'deleteAddonDetail'])->name('inventory.deleteAddonDetail');
    
     Route::get(
         '/additemunitdetails/{id}',
@@ -105,7 +124,7 @@ Route::prefix('admin')->middleware(['auth:admin'])->group(function () {
     Route::post('storeitems', [InventorySettingsController::class, 'storeaddonitems'])->name('admin.storeaddonitems');
     Route::post('inventorysettingsdetails', [InventorySettingsController::class, 'inventorysettingStore'])->name('admin.storeitemssettingdetails');
     Route::get('searchsubgroup', [ItemSubGroupController::class, 'searchsubgroup'])->name('admin.searchsubgroup');
-
+    Route::post('updateitemsstatus', [InventorySettingsController::class, 'updateitemstatus'])->name('admin.updatestatusitem');
 
     Route::get('stockin', [InventorySettingsController::class, 'stockin'])->name('admin.stockin');
     Route::get('stockout', [InventorySettingsController::class, 'stockout'])->name('admin.stockout');
@@ -131,9 +150,51 @@ Route::prefix('admin')->middleware(['auth:admin'])->group(function () {
     Route::post('storeaddonitemcatgeory', [AddonCategoryController::class, 'store'])->name('admin.storeaddonitemcategory');
     Route::post('storeaddonitem', [AddonItemController::class, 'store'])->name('admin.storeaddonitem');
     Route::get('/get-addon-items', [AddonItemController::class, 'getAddonItems'])->name('admin.getaddonitems');
+        
 
     Route::post('/storeproductimages', [ProductImagesController::class, 'store'])->name('admin.storeitemsimage');
     Route::delete('/productimages/{id}', [ProductImagesController::class, 'destroy'])->name('productimages.destroy');
     Route::get('/normalusers', [NormalUserController::class, 'index'])->name('admin.listnormausers');
+    Route::post('/storeproductdetails', [ProductDescriptionController::class, 'store'])->name('admin.storeproductdetails');
 
+    // Route::get('/frontendhomepage',[FrontendHomepageController::class,'index'])->name('admin.frontendhomepage');
+    // Route::get('/addcontent', [FrontendHomepageController::class, 'create'])->name('admin.addcontent');
+    // Route::post('/updatecontent', [FrontendHomepageController::class, 'update'])->name('admin.homepage.update');
+    // Route::post('/createcontent', [FrontendHomepageController::class, 'store'])->name('admin.homepage.store');
+   Route::get('/homepage',[FrontendHomepageController::class,'index'])->name('homepage.index');
+    Route::get('/homepage/create', [FrontendHomepageController::class, 'create'])->name('homepage.create');
+    Route::post('/homepage', [FrontendHomepageController::class, 'store'])->name('homepage.store');
+    Route::get('/homepage/{id}/edit', [FrontendHomepageController::class, 'edit'])->name('homepage.edit');
+    Route::put('/homepage/{id}', [FrontendHomepageController::class, 'update'])->name('homepage.update');
+    Route::delete('/homepage/{id}', [FrontendHomepageController::class, 'destroy'])->name('homepage.destroy');
+  
+    Route::resource('partners', PartnerController::class);
+    Route::resource('translations', TranslationController::class);
+
+    
+    Route::get('/brochure',function(){
+        $brochurePath = public_path('admin/brochures/latest_brochure.pdf');
+        $brochureName = basename($brochurePath); // Get just the file name
+        // if (!empty($latestBrochure)) {
+        //     $brochureName = basename($latestBrochure[0]); // Get the file name
+            
+        // } else {
+        //     $brochureName = null;
+        // }
+        $emails = Email::all();
+        return view('backend.download.list', [
+            'brochureName' => $brochureName,
+            'emails' => $emails,
+        ]);
+       
+    })->name('admin.download');
+
+    Route::get('/upload-brochure', [EmailController::class, 'addBrochure'])->name('add.brochure');
+    Route::post('/upload-brochure', [EmailController::class, 'uploadBrochure'])->name('upload.brochure');
+
+    // Order details
+    Route::get('/orderlist', [OrderController::class, 'orderlist'])->name('admin.orderlist');
+    Route::get('/admin/invoice/{id}/send', [OrderController::class, 'sendInvoice'])->name('admin.send.invoice');
+    Route::get('/invoice/{id}', [OrderController::class, 'invoice'])->name('admin.invoice');
+    Route::put('/orders/{id}/update-status', [OrderController::class, 'updateorderstatus'])->name('orders.updateStatus');
 });

@@ -32,7 +32,7 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div class="p-2">
-                                        <form action="{{ route('admin.storeproject')}}" class="form-horizontal" role="form" method="POST" enctype="multipart/form-data">
+                                        <form action="{{ route('admin.updateproject', $project->id )}}" class="form-horizontal" role="form" method="POST" enctype="multipart/form-data">
                                             @csrf
                                             <div class="mb-2 row">
                                                 <label class="col-md-2 col-form-label" for="simpleinput">Title</label>
@@ -41,11 +41,12 @@
                                                        >
                                                 </div>
                                             </div>
+                                
                                             <div class="mb-2 row">
                                                 <label class="col-md-2 col-form-label" for="example-fileinput">Thumbnail</label>
                                                 <div class="col-md-10">
                                                     <input type="file" name="thumbnail" class="form-control" id="example-fileinput">
-                                                    <img  src="project/{{$project->thumbnail}}">
+                                                    <img height="150px;" width="200px;" src="{{ asset('admin/project/' . $project->thumbnail) }}">
                                                 </div>
                                             </div>
 

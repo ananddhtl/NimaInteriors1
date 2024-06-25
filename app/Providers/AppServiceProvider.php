@@ -3,7 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-
+use Illuminate\Pagination\Paginator;
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -22,5 +22,8 @@ class AppServiceProvider extends ServiceProvider
             $view->with('current_locale', app()->getLocale());
             $view->with('available_locales', config('app.available_locales'));
         });
+        Paginator::useBootstrapFive();
+        Paginator::useBootstrapFour();
+
     }
 }

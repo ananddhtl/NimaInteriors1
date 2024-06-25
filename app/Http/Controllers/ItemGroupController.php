@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ItemGroup;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class ItemGroupController extends Controller
@@ -89,10 +90,15 @@ class ItemGroupController extends Controller
      */
     public function destroy($id)
     {
-        $group = ItemGroup::find($id);
-        $group->status = 1;
-        $group->update();
-        return back()->with('Group_delete', 'Group Item delete is delete successfully');
+        DB::transaction(function () use ($id) {
+           
+            DB::table('item_sub_groups')->where('item_group_id', $id)->delete();
+
+          
+            DB::table('item_groups')->where('id', $id)->delete();
+        });
+
+        return redirect()->back()->with('success', 'Item group and related subgroups deleted successfully.');
     }
 
     public function SearchGroup(Request $request)
@@ -101,7 +107,7 @@ class ItemGroupController extends Controller
         if ($request->ajax()) {
             $search = $request->get('query');
             if ($search != '') {
-                $groupitems = ItemGroup::where('groupName', 'LIKE', '' . $search . '%')->where('status', '0')->take(10)->get();
+                $groupitems = ItemGroup::where('groupName', 'LIKE', '' . $search . '%')->take(10)->get();
             }
         }
         return json_encode($groupitems);

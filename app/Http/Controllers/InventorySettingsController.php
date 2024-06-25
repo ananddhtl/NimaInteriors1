@@ -10,6 +10,8 @@ use App\Models\AddonCategory;
 use App\Models\Brand;
 use App\Models\ProductImages;
 use Illuminate\Http\Request;
+use App\Models\ProductDescription;
+use Illuminate\Support\Str;
 
 class InventorySettingsController extends Controller
 {
@@ -18,11 +20,14 @@ class InventorySettingsController extends Controller
      */
     public function index()
     {
-        $itemsdetails = InventorySettings::orderBy("id", "asc")->where('status', '0')->paginate(10);
+        $itemsdetails = InventorySettings::orderBy("id", "asc")->paginate(10);
 
         $itemgroup = ItemGroup::all();
+
+        $itemsubgroup = ItemSubGroup::all();
+      
         $brand = Brand::all();
-        return view('backend.inventory.items', compact('itemsdetails', 'itemgroup', 'brand'));
+        return view('backend.inventory.items', compact('itemsdetails', 'itemgroup','itemsubgroup', 'brand'));
     }
 
     /**
@@ -37,62 +42,60 @@ class InventorySettingsController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    { {
+    {
+        $request->validate([
+            'itemName' => 'required',
+            'itemgroup_id' => 'required',
+            'itemDetails' => 'required',
+            'units' => 'required',
+            'thumbnail' => 'image|mimes:jpeg,png,jpg,gif,webp|max:2048',
+        ]);
 
+       
+        $slug = Str::slug($request->itemName, '-');
 
-            $request->validate([
-                'itemName' => 'required',
-                'itemgroup_id' => 'required',
-                'itemDetails' => 'required',
-               
-                'units' => 'required',
-                'thumbnail' => 'image|mimes:jpeg,png,jpg,gif,webp|max:2048',
-            ]);
+        if ($request->itemEditId) {
+            $itemsupdate = InventorySettings::find($request->itemEditId);
+            $itemsupdate->itemName = $request->itemName;
+            $itemsupdate->itemDetails = $request->itemDetails;
+            $itemsupdate->itemgroup_id = $request->itemgroup_id;
+            $itemsupdate->sub_groups_id = $request->sub_groups_id;
+            $itemsupdate->company_id = $request->company_id;
+            $itemsupdate->units = $request->units;
+            $itemsupdate->slug = $slug; 
 
-
-
-            if ($request->itemEditId) {
-                $itemsupdate = InventorySettings::find($request->itemEditId);
-                $itemsupdate->itemName = $request->itemName;
-                $itemsupdate->itemDetails = $request->itemDetails;
-                $itemsupdate->itemgroup_id = $request->itemgroup_id;
-                $itemsupdate->sub_groups_id = $request->sub_groups_id;
-                $itemsupdate->company_id = $request->company_id;
-
-                $itemsupdate->units = $request->units;
-                if ($request->hasFile('thumbnail')) {
-                    $thumbnail = $request->file('thumbnail');
-                    $img_name = hexdec(uniqid()) . '.' . $thumbnail->getClientOriginalExtension();
-                    $thumbnail->move('uploads/itemsettings/thumbnail/', $img_name);
-                    $save_url = '/uploads/itemsettings/thumbnail/' . $img_name;
-                    $itemsupdate->thumbnail = $save_url;
-                }
-                $itemsupdate->update();
-                return back()->with('itemsdetails_updated', 'Group Item  is successfully updated');
-            } else {
-
-                $itemsdetails = new InventorySettings();
-                $itemsdetails->itemName = $request->itemName;
-                $itemsdetails->itemDetails = $request->itemDetails;
-                $itemsdetails->itemgroup_id = $request->itemgroup_id;
-                $itemsdetails->sub_groups_id = $request->sub_groups_id;
-                $itemsdetails->delivery_estimation_time = $request->delivery_estimation_time;
-                $itemsdetails->company_id = $request->company_id;
-                $itemsdetails->units = $request->units;
-                if ($request->hasFile('thumbnail')) {
-                    $thumbnail = $request->file('thumbnail');
-                    $img_name = hexdec(uniqid()) . '.' . $thumbnail->getClientOriginalExtension();
-                    $thumbnail->move('uploads/itemsettings/thumbnail/', $img_name);
-                    $save_url = '/uploads/itemsettings/thumbnail/' . $img_name;
-                    $itemsdetails->thumbnail = $save_url;
-                }
-
-                $itemsdetails->save();
-                return redirect()->back()->with('itemdetails', 'Item details  added successfully');
+            if ($request->hasFile('thumbnail')) {
+                $thumbnail = $request->file('thumbnail');
+                $img_name = hexdec(uniqid()) . '.' . $thumbnail->getClientOriginalExtension();
+                $thumbnail->move('uploads/itemsettings/thumbnail/', $img_name);
+                $save_url = '/uploads/itemsettings/thumbnail/' . $img_name;
+                $itemsupdate->thumbnail = $save_url;
             }
+            $itemsupdate->update();
+            return back()->with('itemsdetails_updated', 'Group Item is successfully updated');
+        } else {
+            $itemsdetails = new InventorySettings();
+            $itemsdetails->itemName = $request->itemName;
+            $itemsdetails->itemDetails = $request->itemDetails;
+            $itemsdetails->itemgroup_id = $request->itemgroup_id;
+            $itemsdetails->sub_groups_id = $request->sub_groups_id;
+            $itemsdetails->delivery_estimation_time = $request->delivery_estimation_time;
+            $itemsdetails->company_id = $request->company_id;
+            $itemsdetails->units = $request->units;
+            $itemsdetails->slug = $slug; 
+
+            if ($request->hasFile('thumbnail')) {
+                $thumbnail = $request->file('thumbnail');
+                $img_name = hexdec(uniqid()) . '.' . $thumbnail->getClientOriginalExtension();
+                $thumbnail->move('uploads/itemsettings/thumbnail/', $img_name);
+                $save_url = '/uploads/itemsettings/thumbnail/' . $img_name;
+                $itemsdetails->thumbnail = $save_url;
+            }
+
+            $itemsdetails->save();
+            return redirect()->back()->with('itemdetails', 'Item details added successfully');
         }
     }
-
 
 
     public function additemunitdetails($id)
@@ -110,7 +113,7 @@ class InventorySettingsController extends Controller
         $addoncategory = AddonCategory::get();
         
         $itemsunitdetails = InventorySettingDetails::where('commonCode_id', $id)->orderBy('id', 'desc')->first();
-
+        
         return view('backend.inventory.itemunits', compact('itemsunitdetails', 'itemsdetail', 'itemsgroupDetails', 'itemssubgroupdetails', 'itemscompanydetails', 'addoncategory'));
     }
 
@@ -263,5 +266,37 @@ class InventorySettingsController extends Controller
 
         return json_encode($items);
     }
+    public function updateitemstatus(Request $request, InventorySettings $inventorySettings)
+    {
+        $id = $request->id;
 
+        $productimages = ProductImages::where('product_id', $id)->get();
+        if ($productimages->isEmpty()) {
+            return response()->json(['error' => 'Product images not found'], 404);
+        }
+
+        $itemrates = InventorySettingDetails::where('commonCode_id', $id)->get();
+        if ($itemrates->isEmpty()) {
+            return response()->json(['error' => 'Item rates not found'], 404);
+        }
+
+        $productDescriptions = ProductDescription::where('product_id', $id)->get();
+        if ($productDescriptions->isEmpty()) {
+            return response()->json(['error' => 'Product descriptions not found'], 404);
+        }
+
+        $inventorySetting = InventorySettings::find($id);
+        if (!$inventorySetting) {
+            return response()->json(['error' => 'Inventory setting not found'], 404);
+        }
+
+        if ($inventorySetting->addondetails === null) {
+            return response()->json(['error' => 'Addon value is null, status not updated'], 400);
+        }
+
+        $inventorySetting->status = 1;
+        $inventorySetting->save();
+
+        return response()->json(['success' => 'All items found and processed successfully']);
+    }
 }

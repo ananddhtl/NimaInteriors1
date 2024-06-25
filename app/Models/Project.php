@@ -11,6 +11,19 @@ class Project extends Model
 
     public function images()
     {
-        return $this->hasMany(ProjectImages::class);
+        return $this->hasMany(ProjectImages::class)->orderBy('position', 'asc');
+    }
+    public function carouselItems()
+    {
+        return $this->hasMany(CarouselItem::class);
+    }
+    public function getTitleTranslation($locale)
+    {
+        return Translation::getTranslationByContent($this->title, $locale);
+    }
+
+    public function getDescriptionTranslation($locale)
+    {
+        return Translation::getTranslationByContent($this->description, $locale);
     }
 }
